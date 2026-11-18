@@ -377,7 +377,7 @@ body.drawer-open{overflow:hidden}
 .hero-glow{position:absolute;border-radius:50%;filter:blur(2px)}
 .hero-glow-a{width:540px;height:540px;right:-120px;top:4%;background:radial-gradient(circle,var(--glow-c),transparent 68%)}
 .hero-glow-b{width:620px;height:620px;left:-180px;bottom:-180px;background:radial-gradient(circle,var(--glow-d),transparent 70%)}
-.hero-orbit{position:absolute;left:50%;top:50%;width:820px;height:820px;transform:translate(-50%,-50%);opacity:.48;animation:orbit 90s linear infinite}
+.hero-orbit{position:absolute;left:50%;top:50%;width:820px;height:820px;transform:translate(-50%,-50%);opacity:.48;animation:orbit 60s linear infinite}
 @keyframes orbit{to{transform:translate(-50%,-50%) rotate(360deg)}}
 .hero-word{
   position:absolute;right:-24px;bottom:4%;font-family:var(--display);
@@ -385,7 +385,7 @@ body.drawer-open{overflow:hidden}
   color:transparent;-webkit-text-stroke:1px var(--word-stroke);
   user-select:none;
 }
-.hero-inner{position:relative;z-index:2;max-width:940px;padding:0 24px}
+.hero-inner{position:relative;z-index:2;width:100%;max-width:940px;padding:0 24px}
 .hero-kicker{
   display:inline-flex;align-items:center;gap:10px;margin:0 0 22px;
   font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:var(--accent);
@@ -428,6 +428,10 @@ body.drawer-open{overflow:hidden}
 
 /* ===== 区块 ===== */
 .section{padding:84px 0;border-bottom:1px solid var(--line)}
+section[id]{scroll-margin-top:142px}
+.q-section{position:relative;overflow:hidden}
+.q-section::before{content:"Q";position:absolute;right:-18px;top:14px;font-family:var(--display);font-size:clamp(150px,20vw,230px);line-height:.8;color:transparent;-webkit-text-stroke:1px var(--word-stroke);opacity:.55;pointer-events:none;user-select:none}
+.q-section .shell{position:relative;z-index:1}
 .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:28px;margin-bottom:26px}
 .sec-title{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
 .sec-num{font-family:var(--mono);font-size:10.5px;color:var(--accent);letter-spacing:.1em}
@@ -547,17 +551,20 @@ body.drawer-open{overflow:hidden}
   .logo-text small{font-size:8.5px;letter-spacing:.2em}
   .nav-right .cta{display:none}
   .hero{min-height:570px;padding:76px 0 72px}
-  .hero h1{font-size:clamp(36px,10vw,50px)}
+  .hero h1{font-size:clamp(30px,8.4vw,44px);line-height:1.12}
+  .hero-inner{padding:0 14px}
   .hero-lede{font-size:13px;margin-top:18px}
   .hero-actions{margin-top:26px}
   .hero-actions .btn{height:43px;padding:0 16px;font-size:11.5px}
-  .hero-meta{margin-top:40px;flex-wrap:wrap;width:100%;border-left:0;border-right:0}
-  .hero-meta span{flex:1;min-width:110px;padding:9px 8px;font-size:9px}
+  .hero-meta{margin-top:40px;flex-wrap:nowrap;width:100%;border-left:0;border-right:0}
+  .hero-meta span{flex:1 1 0;min-width:0;padding:9px 7px;font-size:8.5px;letter-spacing:.05em}
   .hero-meta span + span{border-left:1px solid var(--line)}
+  .hero-meta b{font-size:11px;margin-right:4px}
   .hero-word{font-size:150px;right:-12px;bottom:8%}
   .sec-head{flex-direction:column;align-items:flex-start;gap:8px}
   .sec-head p{text-align:left}
   .section{padding:58px 0}
+  section[id]{scroll-margin-top:124px}
   .tool-body h3{font-size:20px}
   .guide-row{grid-template-columns:64px minmax(0,1fr) auto;gap:12px;min-height:96px}
   .guide-row .guide-arrow{display:none}
@@ -572,6 +579,45 @@ body.drawer-open{overflow:hidden}
   .scroll-cue svg{animation:none}
   *{transition:none !important}
 }
+/* ===== 动感层：首屏入场、滚动揭示、光标视差 ===== */
+.hero{--mx:0px;--my:0px;--gx:0px;--gy:0px;--sy:0px}
+.hero-grid{animation:gridDrift 28s linear infinite}
+@keyframes gridDrift{to{background-position:88px 88px}}
+.hero-inner > .hero-kicker,
+.hero-inner > h1,
+.hero-inner > .hero-lede,
+.hero-inner > .hero-actions,
+.hero-inner > .hero-meta{
+  opacity:0;transform:translate3d(0,18px,0);
+  animation:heroIn .82s cubic-bezier(.2,.7,.2,1) forwards;
+}
+.hero-inner > .hero-kicker{animation-delay:.06s}
+.hero-inner > h1{animation-delay:.15s}
+.hero-inner > .hero-lede{animation-delay:.29s}
+.hero-inner > .hero-actions{animation-delay:.41s}
+.hero-inner > .hero-meta{animation-delay:.53s}
+@keyframes heroIn{to{opacity:1;transform:none}}
+.scroll-cue{opacity:0;animation:fadeIn .65s ease .86s forwards}
+@keyframes fadeIn{to{opacity:1}}
+.hero-grid{transform:translate3d(var(--mx),var(--my),0);transition:transform .42s cubic-bezier(.2,.7,.2,1);will-change:transform}
+.hero-glow-a,.hero-glow-b{transform:translate3d(var(--gx),var(--gy),0);transition:transform .5s cubic-bezier(.2,.7,.2,1);will-change:transform}
+.hero-word{transform:translate3d(var(--gx),calc(var(--gy) + var(--sy)),0);transition:transform .42s cubic-bezier(.2,.7,.2,1);will-change:transform}
+.scroll-progress{position:fixed;left:0;right:0;top:0;height:2px;z-index:130;pointer-events:none}
+.scroll-progress i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-2));transform:scaleX(0);transform-origin:0 50%;will-change:transform}
+.reveal{opacity:0;translate:0 26px;transition:opacity .7s cubic-bezier(.2,.7,.2,1),translate .7s cubic-bezier(.2,.7,.2,1);transition-delay:var(--reveal-delay,0ms)}
+.reveal.is-in{opacity:1;translate:0 0}
+.tag-live::before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--ok);margin-right:5px;vertical-align:1px;animation:livePulse 2.4s ease-in-out infinite}
+@keyframes livePulse{0%,100%{box-shadow:0 0 0 0 transparent}45%{box-shadow:0 0 0 4px var(--ok-bg)}}
+.tool-icon svg{transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.tool-card:hover .tool-icon svg{transform:scale(1.12) rotate(-4deg)}
+@media (prefers-reduced-motion:reduce){
+  .hero-inner > .hero-kicker,.hero-inner > h1,.hero-inner > .hero-lede,.hero-inner > .hero-actions,.hero-inner > .hero-meta{opacity:1;transform:none;animation:none}
+  .scroll-cue{opacity:1;animation:none}
+  .hero-grid,.hero-glow-a,.hero-glow-b,.hero-word{transform:none;animation:none}
+  .reveal{opacity:1;translate:none;transition:none}
+  .scroll-progress{display:none}
+  .tag-live::before{animation:none}
+}
 </style>
 <script>
 (function(){
@@ -584,6 +630,8 @@ body.drawer-open{overflow:hidden}
 </script>
 </head>
 <body>
+
+<div class="scroll-progress" aria-hidden="true"><i id="scrollProgress"></i></div>
 
 <header class="site-head" id="siteHead">
   <div class="utility-bar">
@@ -724,6 +772,7 @@ body.drawer-open{overflow:hidden}
           </div>
         </div>
 
+        <a class="nav-item" href="#events" data-nav="events">Q区活动</a>
         <a class="nav-item" href="#about">关于</a>
       </nav>
 
@@ -749,6 +798,7 @@ body.drawer-open{overflow:hidden}
 
     <nav class="drawer-nav">
       <a href="#top">首页 <span>HOME</span></a>
+      <a href="#events">Q区活动 <span>Q-REGION</span></a>
 
       <div class="drawer-group">
         <p>攻略 <span>GUIDES</span></p>
@@ -820,10 +870,63 @@ body.drawer-open{overflow:hidden}
       </div>
     </div>
 
-    <a class="scroll-cue" href="#tools" aria-label="向下浏览">
+    <a class="scroll-cue" href="#events" aria-label="向下浏览">
       向下浏览
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
     </a>
+  </section>
+
+  <section class="section q-section" id="events">
+    <div class="shell">
+      <div class="sec-head">
+        <div class="sec-title">
+          <span class="sec-num">Q</span>
+          <h2>Q区活动</h2>
+          <span class="sec-en">Q-REGION</span>
+        </div>
+        <p>Q区相关攻略与活动入口，内容陆续补齐。</p>
+      </div>
+      <div class="guide-list q-list">
+        <a class="guide-row is-link" href="/tools/3lsolve/">
+          <span class="guide-code">GEAR</span>
+          <span>
+            <h3>Q区装备与套装</h3>
+            <p>毕业词条、套装搭配与库存整理。</p>
+          </span>
+          <span class="tag tag-live">已上线</span>
+          <span class="guide-arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+          </span>
+        </a>
+        <div class="guide-row is-soon">
+          <span class="guide-code">EVENT</span>
+          <span>
+            <h3>Q区活动与日程</h3>
+            <p>限时活动、兑换与周期安排。</p>
+          </span>
+          <span class="tag tag-soon">筹备中</span>
+          <span class="guide-arrow" aria-hidden="true"></span>
+        </div>
+        <div class="guide-row is-soon">
+          <span class="guide-code">JOB</span>
+          <span>
+            <h3>Q区职业与技能</h3>
+            <p>职业选择、链接技能与加点方向。</p>
+          </span>
+          <span class="tag tag-soon">筹备中</span>
+          <span class="guide-arrow" aria-hidden="true"></span>
+        </div>
+        <div class="guide-row is-soon">
+          <span class="guide-code">BOSS</span>
+          <span>
+            <h3>Q区 Boss 与掉落</h3>
+            <p>Boss 机制、前置任务与掉落整理。</p>
+          </span>
+          <span class="tag tag-soon">筹备中</span>
+          <span class="guide-arrow" aria-hidden="true"></span>
+        </div>
+      </div>
+    </div>
   </section>
 
   <section class="section" id="tools">
@@ -1133,6 +1236,96 @@ body.drawer-open{overflow:hidden}
       if(!panel.hidden) setOpen(false);
       if(panel.contains(document.activeElement)) btn.focus();
     }
+  });
+})();
+</script>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hero = document.querySelector('.hero');
+  var bar = document.getElementById('scrollProgress');
+
+  function setBar(){
+    if(!bar) return;
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - window.innerHeight;
+    var p = max > 0 ? Math.min(1, Math.max(0, (window.scrollY || doc.scrollTop) / max)) : 0;
+    bar.style.transform = 'scaleX(' + p.toFixed(4) + ')';
+  }
+
+  if (hero && !reduce && window.matchMedia('(hover:hover) and (pointer:fine)').matches) {
+    var tx = 0, ty = 0, raf = null;
+    function apply(){
+      raf = null;
+      hero.style.setProperty('--gx', (tx * 12).toFixed(1) + 'px');
+      hero.style.setProperty('--gy', (ty * 8).toFixed(1) + 'px');
+      hero.style.setProperty('--mx', (-tx * 7).toFixed(1) + 'px');
+      hero.style.setProperty('--my', (-ty * 4.5).toFixed(1) + 'px');
+    }
+    hero.addEventListener('pointermove', function(e){
+      var r = hero.getBoundingClientRect();
+      tx = ((e.clientX - r.left) / r.width - .5) * 2;
+      ty = ((e.clientY - r.top) / r.height - .5) * 2;
+      if(!raf) raf = requestAnimationFrame(apply);
+    }, {passive:true});
+    hero.addEventListener('pointerleave', function(){
+      tx = 0; ty = 0;
+      if(!raf) raf = requestAnimationFrame(apply);
+    });
+  }
+
+  var scrollRaf = null;
+  function onScroll(){
+    setBar();
+    if (hero && !reduce && scrollRaf === null) {
+      scrollRaf = requestAnimationFrame(function(){
+        scrollRaf = null;
+        var y = window.scrollY || document.documentElement.scrollTop;
+        hero.style.setProperty('--sy', (Math.min(y, 700) * .055).toFixed(1) + 'px');
+      });
+    }
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', setBar);
+  setBar();
+
+  var items = [];
+  Array.prototype.forEach.call(document.querySelectorAll('.section'), function(section){
+    Array.prototype.forEach.call(section.querySelectorAll('.sec-head, .tool-card, .guide-row, .about-grid'), function(el, i){
+      el.classList.add('reveal');
+      el.style.setProperty('--reveal-delay', (i * 70) + 'ms');
+      items.push(el);
+    });
+  });
+  if ('IntersectionObserver' in window && !reduce) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, {threshold:.12, rootMargin:'0px 0px -8% 0px'});
+    items.forEach(function(el){ io.observe(el); });
+  } else {
+    items.forEach(function(el){ el.classList.add('is-in'); });
+  }
+
+  var directNav = Array.prototype.slice.call(document.querySelectorAll('.nav > a.nav-item'));
+  directNav.forEach(function(link){
+    link.addEventListener('click', function(){
+      directNav.forEach(function(other){ other.classList.remove('is-current'); });
+      link.classList.add('is-current');
+    });
+  });
+
+  var qNav = document.querySelector('.nav > a[data-nav="events"]');
+  Array.prototype.forEach.call(document.querySelectorAll('a[href="#events"]'), function(link){
+    link.addEventListener('click', function(){
+      directNav.forEach(function(other){ other.classList.remove('is-current'); });
+      if(qNav) qNav.classList.add('is-current');
+    });
   });
 })();
 </script>
