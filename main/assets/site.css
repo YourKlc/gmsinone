@@ -624,6 +624,20 @@ body.drawer-open{overflow:hidden}
 /* ===== 内置求解器 ===== */
 .solver-section{padding-top:44px;padding-bottom:54px;scroll-margin-top:132px}
 .solver-section .section-title p{max-width:72ch}
+.solver-section .solver-app .target-desc{
+  margin:10px 0 0;
+  font-size:12px;
+  line-height:1.6;
+  color:var(--muted);
+}
+.solver-section .solver-app .target-desc[hidden]{display:none}
+.page-solver .app-main{padding-bottom:34px;min-height:calc(100vh - 116px)}
+.solver-page-section{padding-top:30px;padding-bottom:24px}
+.solver-page-section .section-heading{margin-bottom:0}
+@media (max-width:760px){
+  .page-solver .app-main{padding-bottom:20px}
+  .solver-page-section{padding-top:20px;padding-left:14px;padding-right:14px}
+}
 .solver-section .solver-app{
   margin-top:24px;
   border:1px solid var(--line-strong);

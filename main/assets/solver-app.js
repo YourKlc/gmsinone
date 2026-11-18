@@ -30,13 +30,31 @@ TAGS.forEach(t => { TAGMAP[t.k] = t; });
 
 /* ===== 搭配（多套目标）===== */
 const DEFAULT_PRESET_ID = 'classic';
-const DEFAULT_PRESET = {
-  id: DEFAULT_PRESET_ID,
-  name: '默认泛用毕业搭配',
-  desc: '通用四类各 3 条，五个职业各 1 条，Crit DMG 1 条',
-  builtin: true,
-  targets: { DL:3, WH:3, REG:3, ATK:3, MAGE:1, PIRATE:1, THIEF:1, WARRIOR:1, BOW:1, CD:1 }
-};
+const DEFAULT_PRESETS = [
+  {
+    id: DEFAULT_PRESET_ID,
+    name: '默认泛用毕业搭配',
+    desc: '通用四类各 3 条，五个职业各 1 条，Crit DMG 1 条',
+    builtin: true,
+    targets: { DL:3, WH:3, REG:3, ATK:3, MAGE:1, PIRATE:1, THIEF:1, WARRIOR:1, BOW:1, CD:1 }
+  },
+  {
+    id: 'all-attack',
+    name: '全攻击(6彩色宝石)',
+    desc: '三条伤害',
+    builtin: true,
+    targets: { DL:3, WH:3, REG:3, ATK:3, CD:3, DMG:3 }
+  },
+  {
+    id: 'triple-holo',
+    name: '三全息(5彩色宝石)',
+    desc: '任意三条1级全息',
+    builtin: true,
+    targets: { DL:3, WH:3, REG:3, ATK:3, CD:3 }
+  }
+];
+const DEFAULT_PRESET = DEFAULT_PRESETS[0];
+const LEGACY_PRESET_IDS = { p3:'all-attack', p4:'triple-holo' };
 
 function cleanTargets(o) {
   const z = {};
@@ -51,6 +69,17 @@ function makePreset(p, keepId) {
     builtin: !!p.builtin,
     targets: cleanTargets(p.targets)
   };
+}
+function mergePresets(raw) {
+  const saved = (Array.isArray(raw) ? raw : []).map(p => makePreset(p, p.id));
+  const customs = saved.filter(p => !DEFAULT_PRESETS.some(b =>
+    b.id === p.id || (p.name || '').trim() === b.name));
+  const list = DEFAULT_PRESETS.map(b => makePreset(b));
+  customs.forEach(p => { if (!list.some(x => x.id === p.id)) list.push(p); });
+  return list;
+}
+function mapActiveId(id) {
+  return LEGACY_PRESET_IDS[id] || id;
 }
 function presetById(id) {
   for (let i = 0; i < state.presets.length; i++) {
@@ -191,9 +220,8 @@ function solveSet(slotPieces, targets, comboLimit) {
 const STORE_KEY = 'ms-3l-solver-v2';
 const state = {
   page:'solve',
-  activeId:'classic',
-  presets:[{ id:'classic', name:'默认泛用毕业搭配', desc:'通用四类各 3 条，五个职业各 1 条，Crit DMG 1 条', builtin:true,
-             targets:{ DL:3, WH:3, REG:3, ATK:3, MAGE:1, PIRATE:1, THIEF:1, WARRIOR:1, BOW:1, CD:1 } }],
+  activeId:DEFAULT_PRESET_ID,
+  presets:DEFAULT_PRESETS.map(p => makePreset(p)),
   inv:null,
   demo:false,
   pick:{ slot:'hat', lines:[] },
@@ -264,21 +292,12 @@ function applyStore(d) {
   state.demo = !!d.demo;
 
   if (Array.isArray(d.presets) && d.presets.length) {
-    const list = d.presets.map(p => makePreset(p, p.id));
-    const def = list.filter(p => p.id === DEFAULT_PRESET_ID)[0];
-    if (!def) {
-      list.unshift(makePreset(DEFAULT_PRESET));
-    } else {
-      def.builtin = true;
-      def.name = DEFAULT_PRESET.name;
-      def.desc = DEFAULT_PRESET.desc;
-      def.targets = cleanTargets(DEFAULT_PRESET.targets);
-    }
-    state.presets = list;
-    state.activeId = list.some(p => p.id === d.activeId) ? d.activeId : DEFAULT_PRESET_ID;
+    state.presets = mergePresets(d.presets);
+    const aid = mapActiveId(d.activeId);
+    state.activeId = state.presets.some(p => p.id === aid) ? aid : DEFAULT_PRESET_ID;
   } else {
-    /* 旧存档迁移：原来只有「默认泛用毕业搭配 + 一份自定义」 */
-    state.presets = [makePreset(DEFAULT_PRESET)];
+    /* 旧存档迁移：保留原来的自定义搭配，同时补上三套默认搭配 */
+    state.presets = DEFAULT_PRESETS.map(p => makePreset(p));
     const oldCustom = d.custom ? cleanTargets(d.custom) : null;
     const oldTotal = oldCustom ? TAGS.reduce((a, t) => a + (oldCustom[t.k] || 0), 0) : 0;
     if (oldTotal > 0) {
@@ -375,6 +394,12 @@ function renderTargets() {
   const targets = activeTargets();
   const keys = Object.keys(targets);
   const pill = $('#targetPill');
+  const desc = $('#targetDesc');
+  if (desc) {
+    const note = String(activePreset().desc || '').trim();
+    desc.textContent = note ? ('当前搭配备注：' + note) : '';
+    desc.hidden = !note;
+  }
 
   if (!keys.length) {
     $('#targetSub').textContent = '';
@@ -646,12 +671,14 @@ function renderTagGrid() {
 }
 
 function renderPreview() {
-  /* 选中了哪几条只在词条按钮上的角标和「0 / 3 条」胶囊里体现，不再单列一行预览 */
+  /* 选中了哪几条只在词条按钮上的角标里体现 */
   const n = state.pick.lines.length;
   $('#addBtn').disabled = (n !== 3);
   const pill = $('#pickPill');
-  pill.textContent = n + ' / 3 条';
-  pill.dataset.state = (n === 3) ? 'ok' : (n > 0 ? 'part' : 'zero');
+  if (pill) {
+    pill.textContent = n + ' / 3 条';
+    pill.dataset.state = (n === 3) ? 'ok' : (n > 0 ? 'part' : 'zero');
+  }
 }
 
 function toggleTag(k) {
@@ -934,18 +961,9 @@ function importJson(file) {
       state.inv = inv;
       state.demo = false;
       if (d && Array.isArray(d.presets) && d.presets.length) {
-        const list = d.presets.map(p => makePreset(p, p.id));
-        if (!list.some(p => p.id === DEFAULT_PRESET_ID)) {
-          list.unshift(makePreset(DEFAULT_PRESET));
-        } else {
-          const def = list.filter(p => p.id === DEFAULT_PRESET_ID)[0];
-          def.builtin = true;
-          def.name = DEFAULT_PRESET.name;
-          def.desc = DEFAULT_PRESET.desc;
-          def.targets = cleanTargets(DEFAULT_PRESET.targets);
-        }
-        state.presets = list;
-        state.activeId = list.some(p => p.id === d.activeId) ? d.activeId : DEFAULT_PRESET_ID;
+        state.presets = mergePresets(d.presets);
+        const aid = mapActiveId(d.activeId);
+        state.activeId = state.presets.some(p => p.id === aid) ? aid : DEFAULT_PRESET_ID;
       }
       state.solIndex = 0;
       renderAll();
