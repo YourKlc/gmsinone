@@ -736,6 +736,7 @@ body.drawer-open{overflow:hidden}
 
   function closeGroup(group){
     group.classList.remove('is-open');
+    group.dataset.hoverOpen = '0';
     var btn = group.querySelector('.nav-trigger');
     if(btn) btn.setAttribute('aria-expanded','false');
   }
@@ -753,11 +754,18 @@ body.drawer-open{overflow:hidden}
     var group = btn.closest('.nav-group');
     btn.addEventListener('click', function(e){
       e.stopPropagation();
+      if(group.classList.contains('is-open') && group.dataset.hoverOpen === '1'){
+        group.dataset.hoverOpen = '0';
+        return;
+      }
       if(group.classList.contains('is-open')) closeGroup(group);
       else openGroup(group);
     });
     group.addEventListener('mouseenter', function(){
-      if(window.matchMedia('(hover:hover)').matches) openGroup(group);
+      if(window.matchMedia('(hover:hover)').matches && !group.classList.contains('is-open')){
+        openGroup(group);
+        group.dataset.hoverOpen = '1';
+      }
     });
     group.addEventListener('mouseleave', function(){
       setTimeout(function(){
