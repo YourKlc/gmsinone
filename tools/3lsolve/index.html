@@ -8,59 +8,70 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='%23d9541e'/%3E%3Ctext%20x='32'%20y='45'%20font-size='36'%20fill='%23ffffff'%20font-family='sans-serif'%20text-anchor='middle'%3EQ%3C/text%3E%3C/svg%3E">
 <style>
 :root{
-  --bg:#f1f2ee;
-  --panel:#ffffff;
-  --sunk:#f6f6f2;
-  --line:#dcdcd3;
-  --line-strong:#c6c7bc;
-  --ink:#1d201b;
-  --muted:#70746a;
-  --accent:#d9541e;
-  --on-accent:#ffffff;
-  --accent-ink:#a63c12;
-  --accent-soft:#fbe9e0;
-  --ok:#2f7d4f;
-  --warn:#a4650b;
-  --bad:#c53b3f;
-  --c-dl:#7a5cf0;
-  --c-wh:#2f9bd6;
-  --c-reg:#1fa67a;
-  --c-atk:#e0484d;
-  --c-class:#c98a1b;
-  --c-crit:#d6409f;
-  --c-ied:#2f8f8f;
-  --c-dmg:#bf6a3c;
-  --c-bd:#7b8b2f;
-  --c-other:#8590a3;
+  --bg:#0a0c0f;
+  --panel:#14181d;
+  --sunk:#101419;
+  --line:#2a2f36;
+  --line-strong:#3b414a;
+  --ink:#f2f4f6;
+  --muted:#98a1ab;
+  --accent:#f0932b;
+  --on-accent:#1a1208;
+  --accent-ink:#ffb45f;
+  --accent-soft:#33210f;
+  --ok:#4cc38a;
+  --warn:#e0b050;
+  --bad:#ff6a70;
+  --c-dl:#9b82ff;
+  --c-wh:#4aaee3;
+  --c-reg:#3fbf93;
+  --c-atk:#ff6a70;
+  --c-class:#e0a93e;
+  --c-crit:#e263ae;
+  --c-ied:#46b3b3;
+  --c-dmg:#e0834f;
+  --c-bd:#a3b55a;
+  --c-other:#9aa5b8;
+  color-scheme:dark;
 }
-@media (prefers-color-scheme: dark){
-  :root{
-    --bg:#0f141a;
-    --panel:#171e26;
-    --sunk:#12181f;
-    --line:#27313c;
-    --line-strong:#38454f;
-    --ink:#e7ecef;
-    --muted:#95a0ad;
-    --accent:#ff8a4c;
-    --on-accent:#1a1208;
-    --accent-ink:#ffb089;
-    --accent-soft:#33210f;
-    --ok:#4cc38a;
-    --warn:#e0b050;
-    --bad:#ff6a70;
-    --c-dl:#9b82ff;
-    --c-wh:#4aaee3;
-    --c-reg:#3fbf93;
-    --c-atk:#ff6a70;
-    --c-class:#e0a93e;
-    --c-crit:#e263ae;
-    --c-ied:#46b3b3;
-    --c-dmg:#e0834f;
-    --c-bd:#a3b55a;
-    --c-other:#9aa5b8;
-    color-scheme:dark;
-  }
+:root[data-theme="ocean"]{
+  --bg:#061018;
+  --panel:#0e202a;
+  --sunk:#0a1822;
+  --line:#1f3b44;
+  --line-strong:#2c505a;
+  --ink:#e6f7f5;
+  --muted:#9bb6b8;
+  --accent:#43cfc4;
+  --on-accent:#041312;
+  --accent-ink:#8ef5ed;
+  --accent-soft:#0f3330;
+}
+:root[data-theme="forest"]{
+  --bg:#0a100c;
+  --panel:#131d16;
+  --sunk:#0d1510;
+  --line:#263a2c;
+  --line-strong:#35503d;
+  --ink:#eef6e8;
+  --muted:#9fb09b;
+  --accent:#8bcf5a;
+  --on-accent:#0b1605;
+  --accent-ink:#c7f39a;
+  --accent-soft:#1d2f14;
+}
+:root[data-theme="violet"]{
+  --bg:#0d0a12;
+  --panel:#181322;
+  --sunk:#121020;
+  --line:#2c253a;
+  --line-strong:#413552;
+  --ink:#f2ecf9;
+  --muted:#a99db5;
+  --accent:#c084fc;
+  --on-accent:#160b20;
+  --accent-ink:#e5b7ff;
+  --accent-soft:#2b1b3a;
 }
 *{box-sizing:border-box}
 html,body{margin:0}
@@ -442,7 +453,60 @@ button.cust-apply{width:auto;padding:8px 16px;flex:0 0 auto}
   border:1px solid var(--line);border-radius:5px;background:var(--panel);color:var(--ink);
   font-family:ui-monospace,Consolas,monospace;font-size:11px;line-height:1.55;padding:8px 9px;
 }
+
+/* ===== 主题切换 ===== */
+.theme-wrap{position:relative;display:inline-flex;align-self:center;flex:none}
+.theme-trigger{
+  display:inline-flex;align-items:center;gap:7px;height:29px;padding:0 9px;
+  border:1px solid var(--line);border-radius:5px;background:var(--panel);
+  color:var(--muted);font-size:11.5px;font-weight:600;cursor:pointer;
+  transition:border-color .14s,color .14s,background .14s;
+}
+.theme-trigger:hover{border-color:var(--line-strong);color:var(--ink)}
+.theme-trigger svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2}
+.theme-swatch{
+  width:13px;height:13px;border-radius:50%;flex:none;
+  background:linear-gradient(135deg,var(--bg) 0 44%,var(--accent) 44% 100%);
+  border:1px solid var(--line-strong);
+}
+.theme-panel{
+  position:absolute;right:0;left:auto;top:calc(100% + 8px);z-index:120;width:264px;
+  max-width:calc(100vw - 24px);padding:8px;background:var(--panel);
+  border:1px solid var(--line-strong);border-radius:8px;
+  box-shadow:0 16px 40px rgba(0,0,0,.28);
+}
+.theme-panel[hidden]{display:none}
+.theme-panel-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:5px 7px 9px;border-bottom:1px solid var(--line);
+}
+.theme-panel-head span{font-size:11px;font-weight:700;letter-spacing:.08em}
+.theme-panel-head small{font-size:9px;letter-spacing:.12em;color:var(--muted)}
+.theme-options{display:grid;gap:2px;margin-top:6px}
+.theme-option{
+  display:grid;grid-template-columns:30px minmax(0,1fr) 18px;align-items:center;gap:8px;
+  width:100%;padding:8px 7px;border:0;border-radius:6px;background:transparent;
+  color:var(--ink);text-align:left;cursor:pointer;
+}
+.theme-option:hover{background:var(--sunk)}
+.theme-option[aria-selected="true"]{background:var(--accent-soft)}
+.theme-option strong{display:block;font-size:11.5px;font-weight:700;line-height:1.35}
+.theme-option small{display:block;margin-top:1px;font-size:9px;letter-spacing:.08em;color:var(--muted)}
+.theme-dots{display:flex;gap:3px;align-items:center}
+.theme-dots i{display:block;width:7px;height:7px;border-radius:50%}
+.theme-check{width:15px;height:15px;stroke:var(--accent);fill:none;stroke-width:2.2;justify-self:end}
+.theme-option[aria-selected="false"] .theme-check{visibility:hidden}
 </style>
+<script>
+(function(){
+  try{
+    var saved = localStorage.getItem('gms-theme');
+    if(['obsidian','ocean','forest','violet'].indexOf(saved) > -1){
+      document.documentElement.dataset.theme = saved;
+    }
+  }catch(e){}
+})();
+</script>
 </head>
 <body>
 <div class="wrap">
@@ -454,6 +518,38 @@ button.cust-apply{width:auto;padding:8px 16px;flex:0 0 auto}
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"/><path d="M11 18l-6-6 6-6"/></svg>
         主攻略站
       </a>
+      <div class="theme-wrap" id="themeWrap">
+        <button class="theme-trigger" id="themeBtn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="themePanel" aria-label="切换配色主题">
+          <span class="theme-swatch" aria-hidden="true"></span>
+          <span class="theme-label" id="themeLabel">黑曜</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="theme-panel" id="themePanel" hidden>
+          <div class="theme-panel-head"><span>配色主题</span><small>THEME</small></div>
+          <div class="theme-options" role="listbox" aria-label="选择配色主题">
+            <button class="theme-option" type="button" role="option" data-theme-choice="obsidian" aria-selected="true">
+              <span class="theme-dots" aria-hidden="true"><i style="background:#0a0c0f"></i><i style="background:#14181d"></i><i style="background:#f0932b"></i></span>
+              <span><strong>黑曜</strong><small>OBSIDIAN</small></span>
+              <svg class="theme-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>
+            </button>
+            <button class="theme-option" type="button" role="option" data-theme-choice="ocean" aria-selected="false">
+              <span class="theme-dots" aria-hidden="true"><i style="background:#061018"></i><i style="background:#0e202a"></i><i style="background:#43cfc4"></i></span>
+              <span><strong>深海</strong><small>OCEAN</small></span>
+              <svg class="theme-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>
+            </button>
+            <button class="theme-option" type="button" role="option" data-theme-choice="forest" aria-selected="false">
+              <span class="theme-dots" aria-hidden="true"><i style="background:#0a100c"></i><i style="background:#131d16"></i><i style="background:#8bcf5a"></i></span>
+              <span><strong>森林</strong><small>FOREST</small></span>
+              <svg class="theme-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>
+            </button>
+            <button class="theme-option" type="button" role="option" data-theme-choice="violet" aria-selected="false">
+              <span class="theme-dots" aria-hidden="true"><i style="background:#0d0a12"></i><i style="background:#181322"></i><i style="background:#c084fc"></i></span>
+              <span><strong>暮紫</strong><small>VIOLET</small></span>
+              <svg class="theme-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="tabs" id="pageTabs"></div>
   </div>
@@ -602,7 +698,7 @@ button.cust-apply{width:auto;padding:8px 16px;flex:0 0 auto}
       </div>
       <div class="field-row">
         <label for="custName">名称</label>
-        <input type="text" id="custName" maxlength="12" placeholder="给这套搭配起个名字">
+        <input type="text" id="custName" maxlength="24" placeholder="给这套搭配起个名字">
       </div>
       <div class="field-row">
         <label for="custDesc">备注</label>
@@ -693,7 +789,7 @@ function cleanTargets(o) {
 function makePreset(p, keepId) {
   return {
     id: keepId || p.id,
-    name: String(p.name || '').slice(0, 12),
+    name: String(p.name || '').slice(0, 24),
     desc: String(p.desc || '').slice(0, 40),
     builtin: !!p.builtin,
     targets: cleanTargets(p.targets)
@@ -1209,7 +1305,7 @@ function commitField(which, v) {
   }
   const raw = String(v == null ? '' : v).trim().replace(/[\s\u3000]+/g, ' ');
   if (which === 'name') {
-    p.name = raw.slice(0, 12) || ('搭配 ' + (state.presets.indexOf(p) + 1));
+    p.name = raw.slice(0, 24) || ('搭配 ' + (state.presets.indexOf(p) + 1));
   } else {
     p.desc = raw.slice(0, 40);
   }
@@ -2844,6 +2940,62 @@ function boot() {
   renderAll();
 }
 document.addEventListener('DOMContentLoaded', boot);
+</script>
+<script>
+(function(){
+  var KEY = 'gms-theme';
+  var root = document.documentElement;
+  var wrap = document.getElementById('themeWrap');
+  var btn = document.getElementById('themeBtn');
+  var panel = document.getElementById('themePanel');
+  var label = document.getElementById('themeLabel');
+  var options = Array.prototype.slice.call(document.querySelectorAll('[data-theme-choice]'));
+  var names = {obsidian:'黑曜', ocean:'深海', forest:'森林', violet:'暮紫'};
+
+  function apply(name, persist){
+    if(!names[name]) name = 'obsidian';
+    root.dataset.theme = name;
+    label.textContent = names[name];
+    btn.setAttribute('aria-label', '切换配色主题，当前' + names[name]);
+    options.forEach(function(opt){
+      opt.setAttribute('aria-selected', opt.getAttribute('data-theme-choice') === name ? 'true' : 'false');
+    });
+    if(persist){
+      try{ localStorage.setItem(KEY, name); }catch(e){}
+    }
+  }
+
+  function setOpen(open){
+    panel.hidden = !open;
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+
+  apply(root.dataset.theme || 'obsidian', false);
+
+  // 全站主题约定：localStorage.gms-theme = obsidian|ocean|forest|violet
+  window.addEventListener('storage', function(e){
+    if(e.key === KEY) apply(e.newValue, false);
+  });
+
+  btn.addEventListener('click', function(){ setOpen(panel.hidden); });
+  panel.addEventListener('click', function(e){ e.stopPropagation(); });
+  options.forEach(function(opt){
+    opt.addEventListener('click', function(){
+      apply(this.getAttribute('data-theme-choice'), true);
+      setOpen(false);
+      btn.focus();
+    });
+  });
+  document.addEventListener('click', function(e){
+    if(!wrap.contains(e.target)) setOpen(false);
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){
+      if(!panel.hidden) setOpen(false);
+      if(panel.contains(document.activeElement)) btn.focus();
+    }
+  });
+})();
 </script>
 </body>
 </html>
