@@ -458,6 +458,7 @@ body.drawer-open{overflow:hidden}
 .tag{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.06em;padding:2px 7px;border:1px solid var(--border-strong);color:var(--text-3)}
 .tag-live{color:var(--ok);border-color:var(--ok-line);background:var(--ok-bg)}
 .tag-soon{color:var(--warn);border-color:var(--warn-line);background:var(--warn-bg)}
+.tag-info{color:var(--accent);border-color:var(--accent-border);background:var(--accent-soft)}
 .tool-body h3{margin:0;font-family:var(--display);font-size:23px;line-height:1.3;font-weight:700;letter-spacing:.01em}
 .tool-body p{margin:9px 0 0;color:var(--text-4);font-size:12.5px;max-width:64ch;line-height:1.7}
 .tool-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
@@ -645,9 +646,9 @@ body.drawer-open{overflow:hidden}
       </a>
 
       <nav class="nav" aria-label="主导航">
-        <a class="nav-item is-current" href="#top">首页</a>
+        <a class="nav-item is-current" href="/main/">首页</a>
 
-        <a class="nav-item" href="#guides">攻略</a>
+        <a class="nav-item" href="/main/guides/">攻略</a>
 
         <div class="nav-group" data-drop="tools">
           <button class="nav-item nav-trigger" aria-expanded="false" aria-controls="dropTools">
@@ -655,20 +656,12 @@ body.drawer-open{overflow:hidden}
             <svg class="caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
           </button>
           <div class="dropdown" id="dropTools">
-            <a class="drop-link" href="/tools/3lsolve/">
-              <span><strong>Q区套装毕业词条求解器</strong><small>最优搭配、窗口识别与补件提示</small></span>
+            <a class="drop-link" href="/main/tools/solver/">
+              <span><strong>Q区求解器</strong><small>独立工具页，只显示求解器功能</small></span>
               <span class="drop-tag">已上线</span>
             </a>
-            <a class="drop-link" href="/tools/3lsolve/">
-              <span><strong>库存整理</strong><small>录入、去重、导出与导入</small></span>
-              <svg class="drop-go" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
-            </a>
-            <span class="drop-link is-soon">
-              <span><strong>更多工具</strong></span>
-              <em>筹备中</em>
-            </span>
-            <a class="drop-all" href="#tools">
-              <span>查看工具区</span>
+            <a class="drop-all" href="/main/tools/solver/">
+              <span>打开求解器</span>
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
             </a>
           </div>
@@ -680,10 +673,10 @@ body.drawer-open{overflow:hidden}
             <svg class="caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
           </button>
           <div class="dropdown" id="dropData">
-            <a class="drop-link" href="#guides">
-              <span><strong>攻略索引</strong><small>按装备、职业、日常与 Boss 分类</small></span>
+            <a class="drop-link" href="/main/guides/">
+              <span><strong>攻略索引</strong><small>装备、活动、职业、Boss 与工具</small></span>
             </a>
-            <a class="drop-link" href="#about">
+            <a class="drop-link" href="/main/about/">
               <span><strong>关于本站</strong><small>作者与站点</small></span>
             </a>
             <a class="drop-link" href="https://github.com/YourKlc/gmsinone" target="_blank" rel="noopener">
@@ -693,7 +686,7 @@ body.drawer-open{overflow:hidden}
           </div>
         </div>
 
-        <a class="nav-item" href="#about">关于</a>
+        <a class="nav-item" href="/main/about/">关于</a>
       </nav>
     </div>
   </div>
@@ -710,25 +703,24 @@ body.drawer-open{overflow:hidden}
     </div>
 
     <nav class="drawer-nav">
-      <a href="#top">首页 <span>HOME</span></a>
+      <a href="/main/">首页 <span>HOME</span></a>
 
-      <a href="#guides">攻略索引 <span>GUIDES</span></a>
+      <a href="/main/guides/">攻略索引 <span>GUIDES</span></a>
 
       <div class="drawer-group">
         <p>工具 <span>TOOLS</span></p>
-        <a href="/tools/3lsolve/">Q区套装毕业词条求解器 <span>LIVE</span></a>
-        <a href="#tools">工具区 <span>02</span></a>
+        <a href="/main/tools/solver/">Q区求解器 <span>LIVE</span></a>
         <span class="is-soon">更多工具 <em>筹备中</em></span>
       </div>
 
       <div class="drawer-group">
         <p>资料 <span>DATA</span></p>
-        <a href="#about">关于本站 <span>ABOUT</span></a>
+        <a href="/main/about/">关于本站 <span>ABOUT</span></a>
         <a href="https://github.com/YourKlc/gmsinone" target="_blank" rel="noopener">站点仓库 <span>GITHUB</span></a>
       </div>
     </nav>
 
-    <a class="drawer-cta" href="#guides">
+    <a class="drawer-cta" href="/main/guides/">
       浏览攻略索引
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
     </a>
@@ -761,14 +753,14 @@ body.drawer-open{overflow:hidden}
       <h1>攻略、资料与工具，<br>都在 GMS 攻略站。</h1>
       <p class="hero-lede">副本怎么打、日常先做哪一件、装备怎么留。攻略、资料和工具都收在一处，少开几个窗口，少翻几页帖子。</p>
       <div class="hero-actions">
-        <a class="btn btn-primary" href="#guides">
+        <a class="btn btn-primary" href="/main/guides/">
           浏览攻略索引
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
         </a>
         <a class="btn btn-ghost" href="#tools">查看工具</a>
       </div>
       <div class="hero-meta">
-        <span><b>04</b>攻略板块</span>
+        <span><b>06</b>攻略条目</span>
         <span><b>01</b>工具已上线</span>
         <span><b>2026.11</b>最近更新</span>
       </div>
@@ -788,49 +780,46 @@ body.drawer-open{overflow:hidden}
           <h2>攻略索引</h2>
           <span class="sec-en">GUIDES</span>
         </div>
-        <p>按主题查，内容陆续补齐。</p>
+        <p>按主题查。已上线的直接进入，筹备中的先留入口。</p>
       </div>
 
       <div class="guide-list">
-        <div class="guide-row is-soon">
-          <span class="guide-code">GEAR</span>
-          <span>
-            <h3>装备与套装</h3>
-            <p>毕业词条、套装搭配与库存整理。</p>
-          </span>
-          <span class="tag tag-soon">筹备中</span>
-          <span class="guide-arrow" aria-hidden="true"></span>
-        </div>
-
-        <div class="guide-row is-soon">
-          <span class="guide-code">JOB</span>
-          <span>
-            <h3>职业与技能</h3>
-            <p>职业选择、链接技能与加点方向。</p>
-          </span>
-          <span class="tag tag-soon">筹备中</span>
-          <span class="guide-arrow" aria-hidden="true"></span>
-        </div>
-
-        <div class="guide-row is-soon">
-          <span class="guide-code">DAILY</span>
-          <span>
-            <h3>日常与周常</h3>
-            <p>每日必做、周常清单与时间安排。</p>
-          </span>
-          <span class="tag tag-soon">筹备中</span>
-          <span class="guide-arrow" aria-hidden="true"></span>
-        </div>
-
-        <div class="guide-row is-soon">
-          <span class="guide-code">BOSS</span>
-          <span>
-            <h3>Boss 与掉落</h3>
-            <p>Boss 机制、前置任务与掉落整理。</p>
-          </span>
-          <span class="tag tag-soon">筹备中</span>
-          <span class="guide-arrow" aria-hidden="true"></span>
-        </div>
+  <a class="guide-row is-link" href="/main/tools/solver/">
+    <span class="guide-code">GEAR</span>
+    <span class="guide-copy"><h3>装备与套装</h3><p>毕业词条、套装搭配与库存整理；求解器在独立工具页。</p></span>
+    <span class="tag tag-live">已上线</span>
+    <span class="guide-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span>
+  </a>
+  <a class="guide-row is-link" href="/main/q/events/">
+    <span class="guide-code">EVENT</span>
+    <span class="guide-copy"><h3>活动与日程</h3><p>限时活动、兑换与周期安排。</p></span>
+    <span class="tag tag-soon">筹备中</span>
+    <span class="guide-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span>
+  </a>
+  <a class="guide-row is-link" href="/main/q/job/">
+    <span class="guide-code">JOB</span>
+    <span class="guide-copy"><h3>职业与技能</h3><p>职业选择、链接技能与加点方向。</p></span>
+    <span class="tag tag-soon">筹备中</span>
+    <span class="guide-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span>
+  </a>
+  <a class="guide-row is-link" href="/main/q/boss/">
+    <span class="guide-code">BOSS</span>
+    <span class="guide-copy"><h3>Boss 与掉落</h3><p>阶段机制、前置任务与掉落整理。</p></span>
+    <span class="tag tag-soon">筹备中</span>
+    <span class="guide-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span>
+  </a>
+  <a class="guide-row is-link" href="/main/tools/solver/">
+    <span class="guide-code">TOOL</span>
+    <span class="guide-copy"><h3>Q区套装求解器</h3><p>已独立成工具页，录入装备求出最优一套。</p></span>
+    <span class="tag tag-live">已上线</span>
+    <span class="guide-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span>
+  </a>
+  <a class="guide-row is-link" href="/main/about/">
+    <span class="guide-code">ABOUT</span>
+    <span class="guide-copy"><h3>关于本站</h3><p>作者、站点说明与源码入口。</p></span>
+    <span class="tag tag-info">信息</span>
+    <span class="guide-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span>
+  </a>
       </div>
     </div>
   </section>
@@ -845,7 +834,7 @@ body.drawer-open{overflow:hidden}
         </div>
       </div>
 
-      <a class="tool-card" href="/tools/3lsolve/">
+      <a class="tool-card" href="/main/tools/solver/">
         <div class="tool-visual">
           <span class="tool-kicker">LIVE / 01</span>
           <span class="tool-icon" aria-hidden="true">
@@ -897,9 +886,9 @@ body.drawer-open{overflow:hidden}
   <div class="shell foot-inner">
     <span class="foot-brand"><i aria-hidden="true"></i>GMS 攻略站</span>
     <div class="foot-links">
-      <a href="#guides">攻略</a>
-      <a href="#tools">工具</a>
-      <a href="#about">关于</a>
+      <a href="/main/guides/">攻略</a>
+      <a href="/main/tools/solver/">工具</a>
+      <a href="/main/about/">关于</a>
     </div>
     <span class="foot-copy">2026 / GUIDE HUB</span>
   </div>
@@ -1085,5 +1074,6 @@ body.drawer-open{overflow:hidden}
   });
 })();
 </script>
+<script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d373065d4abe4deba06e5e082b9f58ed"}'></script>
 </body>
 </html>
