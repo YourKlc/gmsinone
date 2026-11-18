@@ -857,7 +857,7 @@ body.drawer-open{overflow:hidden}
 
       <div class="about-grid">
         <div class="about-copy">
-          <p class="about-credit">这是由 B 站 UP 主 <a href="https://space.bilibili.com/98564943" target="_blank" rel="noopener">Drytron</a>（space.bilibili.com/98564943）制作的攻略与工具主页。</p>
+          <p class="about-credit">这是由 B 站 UP 主 <a href="https://space.bilibili.com/98564943" target="_blank" rel="noopener">Drytron</a> 制作的攻略与工具主页。</p>
         </div>
         <div class="about-links">
           <a href="https://github.com/YourKlc/gmsinone" target="_blank" rel="noopener">
@@ -1000,6 +1000,11 @@ body.drawer-open{overflow:hidden}
   }
 
   apply(root.dataset.theme || 'obsidian', false);
+
+  // 全站主题约定：localStorage.gms-theme = obsidian|ocean|forest|violet
+  window.addEventListener('storage', function(e){
+    if(e.key === KEY) apply(e.newValue, false);
+  });
 
   btn.addEventListener('click', function(){
     setOpen(panel.hidden);
