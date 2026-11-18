@@ -381,6 +381,11 @@ code{font-family:var(--mono);font-size:.92em;color:var(--accent);background:var(
 .external-grid a:hover svg{stroke:var(--accent)}
 
 .about-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr);gap:28px;align-items:start}
+.about-simple{max-width:64ch}
+.about-simple .about-credit{margin:0;font-size:15px;line-height:1.9;color:var(--ink-4)!important}
+.page-about .page-body{display:flex;align-items:center;min-height:calc(100vh - 300px)}
+.page-about .about-simple{width:100%;max-width:820px;margin:0 auto;padding:34px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);text-align:center}
+.page-about .about-simple .about-credit{font-size:clamp(16px,1.8vw,21px);line-height:1.8}
 .about-copy p{margin:0 0 14px;color:var(--text-3);font-size:13px;line-height:1.85;max-width:64ch}
 .about-credit{color:var(--ink-4)!important}
 .about-credit a{color:var(--accent);border-bottom:1px solid var(--accent-underline);padding-bottom:1px}
