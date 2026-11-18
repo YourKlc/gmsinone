@@ -1725,7 +1725,7 @@ const SCAN = {
   panelOpen:false, auto:true,
   worker:null, loading:null,
   lastHash:'', lastAt:0, busy:false,
-  records:[], seq:0, raw:'',
+  records:[], seq:0, raw:'', sessionAdded:0, sessionRecognized:0,
   seen:Object.create(null), dups:Object.create(null), skipped:0, diag:[],
   prevGrid:null, lastBox:null, queue:[], holdUntil:0, missCount:0, lastSig:null, lastEnqAt:0
 };
@@ -1909,6 +1909,10 @@ async function startScan() {
   SCAN.seen = Object.create(null);
   SCAN.dups = Object.create(null);
   SCAN.skipped = 0;
+  SCAN.records = [];
+  SCAN.seq = 0;
+  SCAN.sessionAdded = 0;
+  SCAN.sessionRecognized = 0;
   SCAN.lastHash = '';
   SCAN.lastSig = null;
   SCAN.lastEnqAt = 0;
@@ -1920,6 +1924,7 @@ async function startScan() {
   scanNote(SCAN.rect
     ? '正在识别，把装备浮窗停在方框里；划过的每一件都会自动录入，重复的会跳过。'
     : '整窗识别中：划过一件装备就会录入一件，重复的会跳过，直到你点「停止」。框选一块浮窗区域会更快更准。');
+  renderScanLog();
 
   const track = SCAN.stream.getVideoTracks()[0];
   if (track) {
@@ -1962,16 +1967,16 @@ function stopScan() {
   $('#btnScanStop').disabled = true;
   $('#btnScanStart').disabled = false;
   $('#btnScanRect').disabled = true;
-  /* 已拍下的浮窗不丢，继续读完再收工 */
+  /* 已拍下的浮窗不丢，继续读完再收工；这里只报真实已识别数量，不拿队列截图数冒充装备数 */
   if (SCAN.queue.length) {
-    setScanPill('收尾识别 · 剩 ' + SCAN.queue.length, 'part');
-    scanNote('已停止共享窗口，正在把已经拍下的 ' + SCAN.queue.length + ' 件读完……');
-    dlog('已停止共享，队列里还有 ' + SCAN.queue.length + ' 件要读');
+    setScanPill('收尾识别 · 已识别 ' + SCAN.sessionRecognized + ' 件', 'part');
+    scanNote('已停止共享窗口，正在读完剩余的截图……');
+    dlog('已停止共享，队列里还有 ' + SCAN.queue.length + ' 张截图要读');
     pumpOcr();
     return;
   }
   setScanPill('已停止', 'zero');
-  const added = SCAN.records.filter(r => r.added).length;
+  const added = SCAN.sessionAdded;
   scanNote('已停止共享窗口。本次录入 ' + added + ' 件'
     + (SCAN.skipped ? '，跳过重复 ' + SCAN.skipped + ' 次' : '') + '，都留在库存里。');
 }
@@ -2188,7 +2193,7 @@ const QUEUE_MAX = 40;              /* 最多排队等识别的截图数（约 20
 const PREVIEW_MS = 333;            /* 页面上游戏画面按 3 帧/秒刷新，识别仍按视频原始帧走 */
 
 function enqueueCrop(c) {
-  if (SCAN.queue.length >= QUEUE_MAX) return false;       /* 队列最多排 10 件，塞满时先不拍 */
+  if (SCAN.queue.length >= QUEUE_MAX) return false;       /* 队列最多排 40 张截图，塞满时先不拍 */
   const sig = sigOf(c);
   if (sigChanged(sig, SCAN.lastSig) < 20) return false;   /* 还是那件浮窗（只是画面抖动/闪光） */
   if (Date.now() - SCAN.lastEnqAt < 100) return false;   /* 一秒拍几十张会把队列塞爆 */
@@ -2242,8 +2247,7 @@ async function pumpOcr() {
   if (SCAN.busy || !SCAN.queue.length || !SCAN.worker) return;
   const job = SCAN.queue.shift();
   SCAN.busy = true;
-  const left = SCAN.queue.length + 1;
-  setScanPill(SCAN.stream ? ('识别中 · 剩 ' + left) : ('收尾识别 · 剩 ' + left), 'part');
+  setScanPill((SCAN.stream ? '识别中' : '收尾识别') + ' · 已识别 ' + SCAN.sessionRecognized + ' 件', 'part');
   try {
     let r = await SCAN.worker.recognize(job.canvas);
     let txt = r.data.text;
@@ -2288,12 +2292,15 @@ async function pumpOcr() {
     dlog('OCR 出错：' + ((e && e.message) || e));
   } finally {
     SCAN.busy = false;
-    if (!SCAN.queue.length) setScanPill(SCAN.stream ? '运行中' : '已停止', SCAN.stream ? 'ok' : 'zero');
-    else setScanPill(SCAN.stream ? '运行中' : '收尾识别', 'part');
+    if (!SCAN.queue.length) {
+      setScanPill(SCAN.stream ? ('运行中 · 已识别 ' + SCAN.sessionRecognized + ' 件') : '已停止', SCAN.stream ? 'ok' : 'zero');
+    } else {
+      setScanPill((SCAN.stream ? '识别中' : '收尾识别') + ' · 已识别 ' + SCAN.sessionRecognized + ' 件', 'part');
+    }
     /* 一次识别一块，读完后稍歇再取下一块，别把 CPU 全占满让人物卡住 */
     if (SCAN.queue.length) setTimeout(pumpOcr, 80);
     else if (!SCAN.stream) {
-      const added = SCAN.records.filter(r => r.added).length;
+      const added = SCAN.sessionAdded;
       scanNote('已停止共享窗口。本次录入 ' + added + ' 件'
         + (SCAN.skipped ? '，跳过重复 ' + SCAN.skipped + ' 次' : '') + '，都留在库存里。');
     }
@@ -2570,7 +2577,7 @@ function fillPick(slot, lines) {
 
 /* 批量识别的进度提示 */
 function scanProgress(prefix) {
-  const added = SCAN.records.filter(r => r.added).length;
+  const added = SCAN.sessionAdded;
   const dup = SCAN.skipped;
   scanNote((prefix ? prefix + ' ' : '本次共享已录入 ' + added + ' 件'
     + (dup ? '，跳过重复 ' + dup + ' 次' : '') + '。') + (SCAN.stream ? '继续划过装备，点「停止」结束。' : ''));
@@ -2619,6 +2626,7 @@ function addScanRecord(o) {
     id: ++SCAN.seq, slot:o.slot, lines:lines, detected:detected,
     score:o.score, source:o.source, added:false, pending:false
   };
+  SCAN.sessionRecognized++;
   SCAN.records.unshift(rec);
   if (SCAN.records.length > 60) SCAN.records.length = 60;
 
@@ -2627,6 +2635,7 @@ function addScanRecord(o) {
     state.inv[o.slot].push({ lines:lines.slice() });
     state.demo = false;
     rec.added = true;
+    SCAN.sessionAdded++;
     SCAN.seen[key] = true;
     state.solIndex = 0;
     state.pick.lines = [];
@@ -2657,6 +2666,7 @@ function acceptScanRecord(id) {
   state.demo = false;
   rec.pending = false;
   rec.added = true;
+  SCAN.sessionAdded++;
   state.solIndex = 0;
   scanNote('已存入' + slotLabel(rec.slot) + '：' + rec.lines.map(k => TAGMAP[k].name).join(' / '));
   renderAll();
@@ -2673,6 +2683,7 @@ function undoScanRecord(id) {
   }
   rec.added = false;
   rec.undo = true;
+  SCAN.sessionAdded = Math.max(0, SCAN.sessionAdded - 1);
   /* 撤销后这件就不在库存里了，下次再划到它要能重新入库：
      清掉重复标记，并让「还是同一件浮窗」的判定失效，否则同一张浮窗不会再触发识别 */
   delete SCAN.seen[rec.slot + '|' + sig];
@@ -2689,7 +2700,7 @@ function renderScanLog() {
   box.innerHTML = '';
   const logPill = $('#scanLogPill');
   if (logPill) {
-    logPill.textContent = SCAN.records.filter(r => r.added).length + ' 件已入库';
+    logPill.textContent = SCAN.sessionAdded + ' 件已入库';
     logPill.dataset.state = SCAN.records.some(r => r.pending) ? 'part' : (SCAN.records.length ? 'ok' : 'zero');
   }
   if (!SCAN.records.length) {
