@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GMS 攻略站 · 攻略与工具入口</title>
+<meta name="description" content="GMS 攻略与工具入口：套装求解、装备整理与攻略索引。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='12'%20fill='%23d9541e'/%3E%3Ctext%20x='32'%20y='46'%20font-size='38'%20fill='%23ffffff'%20font-family='sans-serif'%20text-anchor='middle'%3EG%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#f1f2ee;
+  --panel:#ffffff;
+  --sunk:#f6f6f2;
+  --line:#dcdcd3;
+  --line-strong:#c6c7bc;
+  --ink:#1d201b;
+  --muted:#70746a;
+  --accent:#d9541e;
+  --on-accent:#ffffff;
+  --accent-ink:#a63c12;
+  --accent-soft:#fbe9e0;
+  --ok:#2f7d4f;
+  --warn:#a4650b;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0f141a;
+    --panel:#171e26;
+    --sunk:#12181f;
+    --line:#27313c;
+    --line-strong:#38454f;
+    --ink:#e7ecef;
+    --muted:#95a0ad;
+    --accent:#ff8a4c;
+    --on-accent:#1a1208;
+    --accent-ink:#ffb089;
+    --accent-soft:#33210f;
+    --ok:#4cc38a;
+    --warn:#e0b050;
+    color-scheme:dark;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Noto Sans SC",system-ui,sans-serif;
+  font-size:14px;line-height:1.6;font-variant-numeric:tabular-nums;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+button,a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+::selection{background:color-mix(in oklab,var(--accent) 20%,transparent)}
+.shell{max-width:1080px;margin:0 auto;padding:0 24px 40px}
+
+/* ===== 顶栏 ===== */
+.masthead{
+  display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;
+  padding:22px 0 18px;border-bottom:1px solid var(--line);
+}
+.brand{display:flex;align-items:center;gap:11px}
+.brand-mark{
+  width:34px;height:34px;flex:none;display:grid;place-items:center;
+  background:var(--accent);color:var(--on-accent);border-radius:6px;
+  font-size:19px;font-weight:800;line-height:1;
+}
+.brand-text strong{display:block;font-size:15px;letter-spacing:.02em;line-height:1.3}
+.brand-text small{display:block;font-size:10.5px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+.menu{display:flex;align-items:center;gap:20px;flex-wrap:wrap;font-size:12.5px}
+.menu a{color:var(--muted);padding:4px 0;border-bottom:1px solid transparent;transition:color .14s,border-color .14s}
+.menu a:hover{color:var(--ink);border-color:var(--ink)}
+.menu-cta{
+  display:inline-flex;align-items:center;gap:6px;
+  color:var(--accent-ink);background:var(--accent-soft);
+  border:1px solid color-mix(in oklab,var(--accent) 28%,transparent);
+  border-radius:5px;padding:6px 10px;font-weight:700;
+}
+.menu-cta:hover{border-color:var(--accent);color:var(--accent-ink)}
+.menu-cta svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2}
+
+/* ===== 首屏 ===== */
+.hero{
+  display:grid;grid-template-columns:minmax(0,1.35fr) minmax(280px,.75fr);gap:48px;
+  align-items:end;padding:64px 0 52px;border-bottom:1px solid var(--line);
+}
+.kicker{
+  margin:0 0 16px;font-family:ui-monospace,Consolas,monospace;
+  font-size:10.5px;letter-spacing:.16em;color:var(--accent-ink);
+}
+.hero h1{
+  margin:0;font-size:clamp(34px,5.2vw,52px);line-height:1.12;
+  letter-spacing:-.025em;font-weight:700;max-width:13ch;
+}
+.lede{margin:20px 0 0;max-width:52ch;color:var(--muted);font-size:14px}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px}
+.btn{
+  display:inline-flex;align-items:center;gap:7px;padding:9px 14px;
+  border:1px solid var(--line-strong);border-radius:6px;background:var(--panel);
+  font-size:12.5px;font-weight:700;transition:border-color .14s,background .14s,color .14s;
+}
+.btn:hover{border-color:var(--ink)}
+.btn-primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn-primary:hover{background:var(--accent-ink);border-color:var(--accent-ink);color:var(--on-accent)}
+.btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2}
+
+.hero-index{border:1px solid var(--line);background:var(--panel);border-radius:8px;overflow:hidden}
+.hero-index-head{
+  display:flex;justify-content:space-between;align-items:baseline;
+  padding:12px 14px;border-bottom:1px solid var(--line);
+  font-size:10.5px;letter-spacing:.12em;color:var(--muted);
+}
+.hero-index a{
+  display:flex;justify-content:space-between;gap:14px;align-items:baseline;
+  padding:13px 14px;border-bottom:1px solid var(--line);
+  transition:background .14s;
+}
+.hero-index a:last-child{border-bottom:0}
+.hero-index a:hover{background:var(--sunk)}
+.hero-index strong{font-size:13px;font-weight:700;display:block}
+.hero-index small{display:block;color:var(--muted);font-size:11px;margin-top:2px}
+.hero-index .num{font-family:ui-monospace,Consolas,monospace;font-size:10.5px;color:var(--muted)}
+
+/* ===== 状态条 ===== */
+.status-strip{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--line)}
+.status-strip div{padding:17px 0;display:flex;align-items:baseline;gap:10px}
+.status-strip div + div{border-left:1px solid var(--line);padding-left:20px}
+.status-strip span{font-size:11px;color:var(--muted);letter-spacing:.03em}
+.status-strip strong{font-size:20px;font-weight:700;line-height:1}
+.status-strip .date{font-size:12.5px;font-weight:600}
+
+/* ===== 区块 ===== */
+.section{padding:46px 0;border-bottom:1px solid var(--line)}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:24px;margin-bottom:20px}
+.section-head h2{margin:0;font-size:12px;font-weight:700;letter-spacing:.12em}
+.section-head p{margin:0;color:var(--muted);font-size:12px;text-align:right}
+
+.tool-card{
+  display:grid;grid-template-columns:62px minmax(0,1fr) auto;gap:20px;align-items:center;
+  padding:22px;background:var(--panel);border:1px solid var(--line-strong);border-radius:8px;
+  transition:border-color .16s,transform .16s;
+}
+.tool-card:hover{border-color:var(--accent);transform:translateY(-1px)}
+.tool-symbol{
+  width:62px;height:62px;border:1px solid var(--line);border-radius:6px;
+  background:var(--sunk);display:grid;place-items:center;color:var(--accent-ink);
+}
+.tool-symbol svg{width:28px;height:28px;stroke:currentColor;fill:none;stroke-width:1.8}
+.tool-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:5px}
+.tag{
+  display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.04em;
+  padding:2px 7px;border-radius:3px;background:var(--sunk);color:var(--muted);border:1px solid var(--line);
+}
+.tag-live{color:var(--ok);background:color-mix(in oklab,var(--ok) 12%,var(--panel));border-color:transparent}
+.tag-soon{color:var(--warn);background:color-mix(in oklab,var(--warn) 12%,var(--panel));border-color:transparent}
+.mono{font-family:ui-monospace,Consolas,monospace;font-size:10px;letter-spacing:.08em;color:var(--muted)}
+.tool-card h3{margin:0;font-size:19px;line-height:1.35;letter-spacing:-.01em}
+.tool-card p{margin:7px 0 0;color:var(--muted);font-size:12.5px;max-width:62ch}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:11px}
+.chips span{font-size:10.5px;color:var(--muted);border:1px solid var(--line);border-radius:3px;padding:2px 6px;background:var(--sunk)}
+.tool-go{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:var(--accent-ink);white-space:nowrap}
+.tool-go svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2}
+
+.guide-list{border-top:1px solid var(--line)}
+.guide-row{
+  display:grid;grid-template-columns:minmax(0,1fr) auto 22px;gap:18px;align-items:center;
+  padding:17px 4px;border-bottom:1px solid var(--line);
+}
+.guide-row-link{transition:background .14s,color .14s}
+.guide-row-link:hover{background:var(--panel)}
+.guide-kicker{font-family:ui-monospace,Consolas,monospace;font-size:10px;letter-spacing:.11em;color:var(--muted);display:block;margin-bottom:3px}
+.guide-row h3{margin:0;font-size:16px;line-height:1.4;font-weight:700}
+.guide-row p{margin:4px 0 0;color:var(--muted);font-size:12.5px;max-width:64ch}
+.guide-go{width:22px;height:22px;display:grid;place-items:center;color:var(--muted)}
+.guide-go svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2}
+.guide-row-link:hover .guide-go{color:var(--accent-ink)}
+.guide-row-muted h3{color:var(--muted);font-weight:600}
+.guide-row-muted p{color:var(--muted)}
+
+.about-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(260px,.8fr);gap:40px}
+.about-grid p{margin:0;color:var(--muted);font-size:13px;max-width:62ch}
+.about-links{display:flex;flex-direction:column;gap:9px;font-size:12.5px}
+.about-links a{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);color:var(--ink)}
+.about-links a:hover{color:var(--accent-ink)}
+.about-links span{color:var(--muted);font-family:ui-monospace,Consolas,monospace;font-size:11px}
+
+.foot{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  padding:22px 0 0;color:var(--muted);font-size:11.5px;
+}
+.foot .dot{width:3px;height:3px;background:var(--line-strong);border-radius:50%}
+
+@media (max-width:860px){
+  .hero{grid-template-columns:1fr;gap:30px;padding:46px 0 40px;align-items:start}
+  .hero h1{max-width:15ch}
+  .hero-index{max-width:520px}
+  .about-grid{grid-template-columns:1fr;gap:24px}
+  .section-head p{display:none}
+}
+@media (max-width:600px){
+  .shell{padding:0 18px 32px}
+  .menu{gap:14px;font-size:12px}
+  .menu-cta{padding:5px 8px}
+  .status-strip{grid-template-columns:1fr;border-bottom:1px solid var(--line)}
+  .status-strip div + div{border-left:0;border-top:1px solid var(--line);padding-left:0}
+  .tool-card{grid-template-columns:48px minmax(0,1fr);gap:14px;padding:16px}
+  .tool-symbol{width:48px;height:48px}
+  .tool-symbol svg{width:23px;height:23px}
+  .tool-go{grid-column:1 / -1;justify-self:start;margin-top:2px}
+  .guide-row{grid-template-columns:minmax(0,1fr) auto;gap:10px}
+  .guide-go{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none !important}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <header class="masthead">
+    <a class="brand" href="./" aria-label="GMS 攻略站首页">
+      <span class="brand-mark" aria-hidden="true">G</span>
+      <span class="brand-text">
+        <strong>GMS 攻略站</strong>
+        <small>MapleStory Global · 攻略与工具</small>
+      </span>
+    </a>
+    <nav class="menu" aria-label="主导航">
+      <a href="#tools">工具</a>
+      <a href="#guides">攻略</a>
+      <a href="#about">关于</a>
+      <a class="menu-cta" href="https://tools.drytron.net/">
+        3L 套装求解器
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7"/><path d="M9 7h8v8"/></svg>
+      </a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="top">
+      <div>
+        <p class="kicker">GMS / GUIDE HUB</p>
+        <h1>攻略与工具，<br>从一个入口开始。</h1>
+        <p class="lede">套装怎么配、装备怎么留、日常先做哪一件。先把常用的工具和攻略收在一处，少开几个窗口，少翻几页帖子。</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://tools.drytron.net/">
+            打开 3L 套装求解器
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7"/><path d="M9 7h8v8"/></svg>
+          </a>
+          <a class="btn" href="#guides">浏览攻略索引</a>
+        </div>
+      </div>
+
+      <aside class="hero-index" aria-label="站内目录">
+        <div class="hero-index-head"><span>目录</span><span>INDEX</span></div>
+        <a href="https://tools.drytron.net/">
+          <span><strong>3L 套装求解器</strong><small>按部位凑满毕业词条</small></span>
+          <span class="num">01</span>
+        </a>
+        <a href="#guides">
+          <span><strong>攻略索引</strong><small>装备、职业、日常、Boss</small></span>
+          <span class="num">02</span>
+        </a>
+        <a href="#about">
+          <span><strong>关于本站</strong><small>站点说明与仓库地址</small></span>
+          <span class="num">03</span>
+        </a>
+      </aside>
+    </section>
+
+    <section class="status-strip" aria-label="站点状态">
+      <div><strong>1</strong><span>个工具已上线</span></div>
+      <div><strong>4</strong><span>个攻略板块</span></div>
+      <div><strong class="date">2026-11-18</strong><span>最近更新</span></div>
+    </section>
+
+    <section class="section" id="tools">
+      <div class="section-head">
+        <h2>工具</h2>
+        <p>直接解决具体问题，不绕路。</p>
+      </div>
+
+      <a class="tool-card" href="https://tools.drytron.net/">
+        <span class="tool-symbol" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 17.5h7M17.5 14v7"/></svg>
+        </span>
+        <span class="tool-copy">
+          <span class="tool-meta"><span class="tag tag-live">已上线</span><span class="mono">3L-SET-SOLVER</span></span>
+          <h3>3L 套装毕业词条求解器</h3>
+          <p>按部位录入装备，自动求出最优一套；支持识别游戏窗口、库存管理、重复识别去重，以及「再添一件就能齐」的补件提示。</p>
+          <span class="chips"><span>最优搭配</span><span>窗口识别</span><span>库存管理</span><span>补件提示</span></span>
+        </span>
+        <span class="tool-go">进入工具
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+    </section>
+
+    <section class="section" id="guides">
+      <div class="section-head">
+        <h2>攻略索引</h2>
+        <p>按主题查，内容陆续补齐。</p>
+      </div>
+
+      <div class="guide-list">
+        <a class="guide-row guide-row-link" href="https://tools.drytron.net/">
+          <span>
+            <span class="guide-kicker">装备 / 套装</span>
+            <h3>装备与套装</h3>
+            <p>毕业词条、套装搭配与库存整理。当前可用 3L 套装求解器。</p>
+          </span>
+          <span class="tag tag-live">已上线</span>
+          <span class="guide-go" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+          </span>
+        </a>
+
+        <div class="guide-row guide-row-muted">
+          <span>
+            <span class="guide-kicker">职业 / 技能</span>
+            <h3>职业与技能</h3>
+            <p>职业选择、链接技能与加点方向。</p>
+          </span>
+          <span class="tag tag-soon">筹备中</span>
+          <span class="guide-go" aria-hidden="true"></span>
+        </div>
+
+        <div class="guide-row guide-row-muted">
+          <span>
+            <span class="guide-kicker">日常 / 周常</span>
+            <h3>日常与周常</h3>
+            <p>每日必做、周常清单与时间安排。</p>
+          </span>
+          <span class="tag tag-soon">筹备中</span>
+          <span class="guide-go" aria-hidden="true"></span>
+        </div>
+
+        <div class="guide-row guide-row-muted">
+          <span>
+            <span class="guide-kicker">Boss / 掉落</span>
+            <h3>Boss 与掉落</h3>
+            <p>Boss 机制、前置任务与掉落整理。</p>
+          </span>
+          <span class="tag tag-soon">筹备中</span>
+          <span class="guide-go" aria-hidden="true"></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="section-head">
+        <h2>关于本站</h2>
+        <p>一个入口，持续加内容。</p>
+      </div>
+      <div class="about-grid">
+        <p>这里是 GMS 攻略与工具的入口页。工具和攻略分仓库维护，主站只做导航与索引；新工具上线后，会先加进顶部菜单和「工具」区。</p>
+        <div class="about-links">
+          <a href="https://github.com/YourKlc/gmsinone">主站仓库<span>gmsinone</span></a>
+          <a href="https://github.com/YourKlc/3l-set-solver">求解器仓库<span>3l-set-solver</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span>GMS 攻略站</span>
+    <span class="dot" aria-hidden="true"></span>
+    <span>2026 · 攻略与工具入口</span>
+  </footer>
+
+</div>
+</body>
+</html>
