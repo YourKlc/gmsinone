@@ -647,34 +647,7 @@ body.drawer-open{overflow:hidden}
       <nav class="nav" aria-label="主导航">
         <a class="nav-item is-current" href="#top">首页</a>
 
-        <div class="nav-group" data-drop="guides">
-          <button class="nav-item nav-trigger" aria-expanded="false" aria-controls="dropGuides">
-            攻略
-            <svg class="caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-          </button>
-          <div class="dropdown" id="dropGuides">
-            <a class="drop-link" href="/tools/3lsolve/">
-              <span><strong>装备与套装</strong><small>毕业词条、套装搭配与库存整理</small></span>
-              <span class="drop-tag">已上线</span>
-            </a>
-            <span class="drop-link is-soon">
-              <span><strong>职业与技能</strong><small>职业选择、链接技能与加点方向</small></span>
-              <em>筹备中</em>
-            </span>
-            <span class="drop-link is-soon">
-              <span><strong>日常与周常</strong><small>每日必做、周常清单与时间安排</small></span>
-              <em>筹备中</em>
-            </span>
-            <span class="drop-link is-soon">
-              <span><strong>Boss 与掉落</strong><small>Boss 机制、前置任务与掉落整理</small></span>
-              <em>筹备中</em>
-            </span>
-            <a class="drop-all" href="#guides">
-              <span>查看攻略索引</span>
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
-            </a>
-          </div>
-        </div>
+        <a class="nav-item" href="#guides">攻略</a>
 
         <div class="nav-group" data-drop="tools">
           <button class="nav-item nav-trigger" aria-expanded="false" aria-controls="dropTools">
@@ -717,10 +690,6 @@ body.drawer-open{overflow:hidden}
               <span><strong>站点仓库</strong><small>gmsinone · GitHub</small></span>
               <svg class="drop-go" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7"/><path d="M9 7h8v8"/></svg>
             </a>
-            <a class="drop-link" href="https://github.com/YourKlc/gmsinone/tree/main/tools/3lsolve" target="_blank" rel="noopener">
-              <span><strong>求解器源码</strong><small>tools/3lsolve · GitHub</small></span>
-              <svg class="drop-go" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7"/><path d="M9 7h8v8"/></svg>
-            </a>
           </div>
         </div>
 
@@ -743,14 +712,7 @@ body.drawer-open{overflow:hidden}
     <nav class="drawer-nav">
       <a href="#top">首页 <span>HOME</span></a>
 
-      <div class="drawer-group">
-        <p>攻略 <span>GUIDES</span></p>
-        <a href="#guides">攻略索引 <span>ALL</span></a>
-        <a href="/tools/3lsolve/">装备与套装 <span>LIVE</span></a>
-        <span class="is-soon">职业与技能 <em>筹备中</em></span>
-        <span class="is-soon">日常与周常 <em>筹备中</em></span>
-        <span class="is-soon">Boss 与掉落 <em>筹备中</em></span>
-      </div>
+      <a href="#guides">攻略索引 <span>GUIDES</span></a>
 
       <div class="drawer-group">
         <p>工具 <span>TOOLS</span></p>
@@ -763,7 +725,6 @@ body.drawer-open{overflow:hidden}
         <p>资料 <span>DATA</span></p>
         <a href="#about">关于本站 <span>ABOUT</span></a>
         <a href="https://github.com/YourKlc/gmsinone" target="_blank" rel="noopener">站点仓库 <span>GITHUB</span></a>
-        <a href="https://github.com/YourKlc/gmsinone/tree/main/tools/3lsolve" target="_blank" rel="noopener">求解器源码 <span>GITHUB</span></a>
       </div>
     </nav>
 
@@ -831,17 +792,15 @@ body.drawer-open{overflow:hidden}
       </div>
 
       <div class="guide-list">
-        <a class="guide-row is-link" href="/tools/3lsolve/">
+        <div class="guide-row is-soon">
           <span class="guide-code">GEAR</span>
           <span>
             <h3>装备与套装</h3>
             <p>毕业词条、套装搭配与库存整理。</p>
           </span>
-          <span class="tag tag-live">已上线</span>
-          <span class="guide-arrow" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
-          </span>
-        </a>
+          <span class="tag tag-soon">筹备中</span>
+          <span class="guide-arrow" aria-hidden="true"></span>
+        </div>
 
         <div class="guide-row is-soon">
           <span class="guide-code">JOB</span>
@@ -927,9 +886,6 @@ body.drawer-open{overflow:hidden}
         <div class="about-links">
           <a href="https://github.com/YourKlc/gmsinone" target="_blank" rel="noopener">
             <span>站点仓库</span><span>GITHUB <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7"/><path d="M9 7h8v8"/></svg></span>
-          </a>
-          <a href="https://github.com/YourKlc/gmsinone/tree/main/tools/3lsolve" target="_blank" rel="noopener">
-            <span>求解器源码</span><span>GITHUB <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7"/><path d="M9 7h8v8"/></svg></span>
           </a>
         </div>
       </div>
