@@ -10,6 +10,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20fill='%230a0c0f'/%3E%3Cpath%20d='M32%2010%2052%2021v22L32%2054%2012%2043V21Z'%20fill='none'%20stroke='%23f0932b'%20stroke-width='3'/%3E%3Ctext%20x='32'%20y='40'%20font-size='22'%20fill='%23f2f4f6'%20font-family='sans-serif'%20text-anchor='middle'%3EG%3C/text%3E%3C/svg%3E">
 <script>(function(){try{var t=localStorage.getItem('gms-theme');if(['day','night','obsidian','ocean','forest','violet'].indexOf(t)>-1)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 <link rel="stylesheet" href="/main/assets/site.css">
+<link rel="stylesheet" href="/main/assets/solver.css">
 </head>
 <body class="page-home">
 <a class="skip" href="#main">跳到内容</a>
@@ -48,40 +49,18 @@
       </a>
       <nav class="nav" aria-label="主导航">
         <a class="nav-item is-current" href="/main/">首页</a>
-        <div class="nav-group" data-nav-group="guides">
-  <button class="nav-item nav-trigger" type="button" aria-expanded="false" aria-controls="drop-guides">攻略 <svg class="caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
-  <div class="dropdown" id="drop-guides">
-    <a class="drop-link" href="/main/q/gear/"><span><strong>Q区装备与套装</strong><small>毕业词条、套装搭配与库存整理</small></span><span class="drop-tag">已上线</span></a>
-    <span class="drop-link is-soon"><span><strong>Q区活动与日程</strong><small>限时活动、兑换与周期安排</small></span><em>筹备中</em></span>
-    <span class="drop-link is-soon"><span><strong>Q区职业与技能</strong><small>职业选择、链接技能与加点方向</small></span><em>筹备中</em></span>
-    <span class="drop-link is-soon"><span><strong>Q区 Boss 与掉落</strong><small>Boss 机制、前置任务与掉落整理</small></span><em>筹备中</em></span>
-    <a class="drop-all" href="/main/q/"><span>查看全部 Q区入口</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
-  </div>
-</div>
+        <a class="nav-item" href="/main/guides/">攻略</a>
         <div class="nav-group" data-nav-group="tools">
   <button class="nav-item nav-trigger" type="button" aria-expanded="false" aria-controls="drop-tools">工具 <svg class="caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
   <div class="dropdown" id="drop-tools">
-    <a class="drop-link" href="/main/tools/solver/"><span><strong>Q区套装毕业词条求解器</strong><small>在当前页录入、识别、计算</small></span><span class="drop-tag">已上线</span></a>
-    <a class="drop-link" href="/tools/3lsolve/" target="_blank" rel="noopener"><span><strong>打开独立求解器</strong><small>新窗口打开 /tools/3lsolve/</small></span><span class="drop-go"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7"/><path d="M9 7h8v8"/></svg></span></a>
-    <a class="drop-link" href="https://github.com/YourKlc/gmsinone/tree/main/tools/3lsolve" target="_blank" rel="noopener"><span><strong>求解器源码</strong><small>tools/3lsolve · GitHub</small></span><span class="drop-go"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7"/><path d="M9 7h8v8"/></svg></span></a>
-    <a class="drop-all" href="/main/tools/solver/"><span>查看工具区</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
+    <a class="drop-link" href="/main/#solver"><span><strong>Q区求解器</strong><small>在本页底部直接录入、识别、计算</small></span><span class="drop-tag">已上线</span></a>
+    <a class="drop-all" href="/main/#solver"><span>直接使用求解器</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
   </div>
 </div>
-        <div class="nav-group" data-nav-group="data">
-  <button class="nav-item nav-trigger" type="button" aria-expanded="false" aria-controls="drop-data">资料 <svg class="caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
-  <div class="dropdown" id="drop-data">
-    <a class="drop-link" href="/main/guides/"><span><strong>攻略索引</strong><small>按装备、活动、职业与 Boss 分类</small></span><span class="drop-go"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span></a>
-    <a class="drop-link" href="/main/about/"><span><strong>关于本站</strong><small>作者、站点结构与源码入口</small></span><span class="drop-go"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span></a>
-    <a class="drop-link" href="https://github.com/YourKlc/gmsinone" target="_blank" rel="noopener"><span><strong>站点仓库</strong><small>gmsinone · GitHub</small></span><span class="drop-go"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7"/><path d="M9 7h8v8"/></svg></span></a>
-    <a class="drop-link" href="https://github.com/YourKlc/gmsinone/tree/main/tools/3lsolve" target="_blank" rel="noopener"><span><strong>求解器源码</strong><small>tools/3lsolve · GitHub</small></span><span class="drop-go"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7"/><path d="M9 7h8v8"/></svg></span></a>
-    <a class="drop-all" href="/main/guides/"><span>查看攻略索引</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
-  </div>
-</div>
-        <a class="nav-item" href="/main/q/">Q区活动</a>
         <a class="nav-item" href="/main/about/">关于</a>
       </nav>
       <div class="nav-right">
-        <a class="cta" href="/main/tools/solver/">打开求解器 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
+        <a class="cta" href="/main/#solver">打开求解器 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
       </div>
     </div>
   </div>
@@ -95,13 +74,11 @@
     </div>
     <nav class="drawer-nav">
       <a href="/main/">首页 <span>HOME</span></a>
-      <a href="/main/q/">Q区活动 <span>Q-REGION</span></a>
-      <div class="drawer-group"><p>Q区 <span>Q-REGION</span></p><a href="/main/q/">Q区总览 <span>Q-REGION</span></a><a href="/main/q/gear/">装备与套装 <span>GEAR</span></a><a href="/main/q/events/">活动与日程 <span>EVENT</span></a><a href="/main/q/job/">职业与技能 <span>JOB</span></a><a href="/main/q/boss/">Boss 与掉落 <span>BOSS</span></a></div>
-      <div class="drawer-group"><p>工具 <span>TOOLS</span></p><a href="/main/tools/solver/">套装求解器 <span>SOLVER</span></a><a href="/tools/3lsolve/" target="_blank" rel="noopener">独立求解器 <span>NEW WINDOW</span></a></div>
-      <div class="drawer-group"><p>资料 <span>LIBRARY</span></p><a href="/main/guides/">攻略索引 <span>GUIDES</span></a><a href="/main/about/">关于本站 <span>ABOUT</span></a></div>
+      <a href="/main/guides/">攻略 <span>GUIDES</span></a>
+      <div class="drawer-group"><p>工具 <span>TOOLS</span></p><a href="/main/#solver">Q区求解器 <span>SOLVER</span></a></div>
       <a href="/main/about/">关于 <span>ABOUT</span></a>
     </nav>
-    <a class="drawer-cta" href="/main/tools/solver/">打开求解器 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
+    <a class="drawer-cta" href="/main/#solver">打开求解器 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
   </aside>
 </div>
 <main class="app-main" id="main">
@@ -124,18 +101,18 @@
   <div class="hero-copy">
     <p class="kicker"><span class="kicker-line"></span>DRYTRON / GMS GUIDE HUB</p>
     <h1>把 Q区的事，<br><span>收进一个工作台。</span></h1>
-    <p class="lede">装备、活动、职业与 Boss 拆成独立页面。顶部菜单直接进入，内容就是当前这一页，不再在长页面里找入口。</p>
+    <p class="lede">求解器已经内置在本页底部，不需要跳转到单独的子页面。顶部菜单只保留工具入口，往下滚就能直接录入、识别和计算。</p>
     <div class="actions">
-      <a class="btn btn-primary" href="/main/q/gear/">
-        进入 Q区装备
+      <a class="btn btn-primary" href="#solver">
+        开始求解
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
       </a>
-      <a class="btn btn-ghost" href="/main/tools/solver/">打开求解器</a>
+      <a class="btn btn-ghost" href="/main/guides/">查看攻略</a>
     </div>
     <div class="hero-stats">
-      <div><b>04</b><span>功能入口</span></div>
-      <div><b>01</b><span>已上线</span></div>
-      <div><b>03</b><span>筹备中</span></div>
+      <div><b>01</b><span>内置求解器</span></div>
+      <div><b>06</b><span>配色主题</span></div>
+      <div><b>18</b><span>目标词条</span></div>
     </div>
   </div>
 
@@ -156,11 +133,11 @@
   </div>
 
   <div class="feature-grid">
-    <a class="feature-card" href="/main/q/gear/">
+    <a class="feature-card" href="#solver">
       <span class="feature-top"><span class="feature-code">GEAR</span><span class="tag tag-live">已上线</span></span>
       <h3>装备与套装</h3>
       <p>毕业词条、套装搭配与库存整理。</p>
-      <span class="feature-foot"><span>进入页面</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span>
+      <span class="feature-foot"><span>直接使用求解器</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span>
     </a>
     <a class="feature-card" href="/main/q/events/">
       <span class="feature-top"><span class="feature-code">EVENT</span><span class="tag tag-soon">筹备中</span></span>
@@ -193,7 +170,7 @@
   </div>
 
   <div class="home-split">
-    <a class="wide-card tool-wide" href="/main/tools/solver/">
+    <a class="wide-card tool-wide" href="#solver">
       <span class="wide-icon" aria-hidden="true">
         <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 17.5h7M17.5 14v7"/></svg>
       </span>
@@ -221,17 +198,220 @@
 
 <section class="home-note">
   <span class="note-mark" aria-hidden="true">//</span>
-  <p>站点现在按功能拆成子路径；顶部菜单是主要入口，移动端从右上角打开全部菜单。</p>
+  <p>站点已收束为一个主页面；求解器在页面底部直接使用，移动端从右上角打开全部菜单。</p>
   <a href="/main/about/">关于本站 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
+</section>
+
+<section class="content-section solver-section" id="solver">
+  <div class="section-heading">
+    <p class="section-code">03 / SOLVER</p>
+    <div class="section-title">
+      <h2>Q区套装毕业词条求解器</h2>
+      <p>求解器已内置在本页，直接录入、识别和计算，不再打开独立子页面。</p>
+    </div>
+  </div>
+  <div class="solver-app" data-solver-root data-theme="day">
+  <div class="solver-bar">
+    <span class="solver-bar-label">TOOL / 3LSOLVE</span>
+    <div class="tabs" id="pageTabs"></div>
+  </div>
+<div id="viewSolve">
+  <!-- ===== 目标 ===== -->
+  <section class="card">
+    <div class="card-head">
+      <h2>目标词条<span id="targetSub"></span></h2>
+      <div class="head-right">
+        <div class="mode-switch" id="modeSwitch"></div>
+        <span class="pill" id="targetPill" data-state="zero">—</span>
+      </div>
+    </div>
+    <div class="target-grid" id="targetGrid"></div>
+  </section>
+
+  <div class="cols">
+    <div class="col">
+      <!-- ===== 添加装备 ===== -->
+      <section class="card">
+        <div class="card-head"><h2>加一件装备</h2><span class="pill" id="pickPill" data-state="zero">0 / 3 条</span></div>
+
+        <div class="scan-inline">
+          <div class="scan-inline-head">
+            <button class="mini scan-toggle" id="btnScanToggle" aria-expanded="false">
+              <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M9 21h6"/></svg>
+              <span class="lbl">识别游戏窗口</span>
+              <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <span class="pill" id="scanPill" data-state="zero">未开始</span>
+            <span class="hint">共享窗口后，划过的装备自动填进下面这格</span>
+          </div>
+          <div id="scanBody" hidden>
+            <p class="mode-note">
+              点「开始共享」，在弹出的列表里选游戏窗口（默认停在「窗口」页，游戏要窗口化运行）。共享期间会一直识别你划过的每一件装备，
+              按装备名自动判部位、录入并去重，直到你点「停止」；想更准更快，可以在画面上框一块浮窗区域。
+              一件装备上的词条可能是 1~3 条，认得的按词条记录，认不得的统一记为 Other。第一次用需要联网加载识别引擎。
+            </p>
+            <div class="inv-tools" style="margin-top:0;border-top:0;padding-top:0">
+              <button class="ghost" id="btnScanStart">开始共享</button>
+              <button class="ghost" id="btnScanStop" disabled>停止</button>
+              <button class="ghost" id="btnScanRect" disabled>重新框选</button>
+              <span class="hint"><input type="checkbox" id="scanAuto" checked> 识别期间自动录入（重复的跳过）</span>
+            </div>
+            <div class="scan-stage" id="scanStage">
+              <video id="scanVideo" autoplay muted playsinline class="scan-video"></video>
+              <canvas id="scanCanvas" hidden></canvas>
+              <div class="scan-rect" id="scanRect"></div>
+              <p class="empty" id="scanHint">还没连接窗口。开始共享后，在画面上按住鼠标拖出一个方框，罩住整个装备浮窗（装备名 + 3 行词条）。</p>
+            </div>
+            <div class="scan-bar">
+              <span class="hint" id="scanRegion">区域：未框选</span>
+              <span class="hint" id="scanSlotInfo">部位：自动识别</span>
+              <span class="hint" id="scanEngine">识别引擎：未加载</span>
+            </div>
+            <p class="mode-note" id="scanNote"></p>
+
+            <div class="scan-shot">
+              <div class="scan-drop" id="scanDrop">不方便共享窗口时，把装备截图拖到这里，或在页面里 Ctrl+V 粘贴</div>
+              <div class="inv-tools">
+                <button class="ghost" id="btnScanShot">选择截图</button>
+                <span class="pill" id="scanShotPill" data-state="zero">—</span>
+                <input type="file" id="scanFile" accept="image/*" hidden>
+              </div>
+            </div>
+
+            <div class="scan-log-head">
+              <span class="hint">识别记录</span>
+              <span class="pill" id="scanLogPill" data-state="zero">0 件已入库</span>
+            </div>
+            <div id="scanLog"></div>
+            <div class="scan-raw" id="scanRaw" hidden></div>
+
+            <details class="scan-diag" id="scanDiag">
+              <summary>诊断日志（识别出问题时可以复制发我）</summary>
+              <div class="diag-tools">
+                <button class="mini" id="btnDiagCopy">复制日志</button>
+                <button class="mini" id="btnDiagClear">清空</button>
+                <span class="hint" id="scanDiagPill"></span>
+              </div>
+              <textarea class="diag-body" id="scanDiagBody" readonly spellcheck="false"></textarea>
+            </details>
+          </div>
+        </div>
+
+        <div class="slot-tabs" id="slotTabs"></div>
+        <div class="tag-grid" id="tagGrid"></div>
+        <button class="primary" id="addBtn">加入库存</button>
+      </section>
+
+    </div>
+
+    <div class="col">
+      <!-- ===== 最优一套 ===== -->
+      <section class="card result">
+        <div class="card-head"><h2>最优一套</h2><span class="pill" id="resultPill" data-state="zero">—</span></div>
+        <div id="resultBody"></div>
+      </section>
+
+      <!-- ===== 再添一件就能齐 ===== -->
+      <section class="card" id="gapCard" hidden>
+        <div class="card-head">
+          <h2>再添一件就能齐<span id="gapSub"></span></h2>
+          <span class="pill" id="gapPill" data-state="part">—</span>
+        </div>
+        <div id="gapBody"></div>
+      </section>
+    </div>
+  </div>
+
+  <!-- ===== 库存（整幅） ===== -->
+  <section class="card" id="invCard">
+    <div class="card-head">
+      <h2>我的装备<span id="invSub"></span></h2>
+      <span class="pill" id="invPill">0 件</span>
+    </div>
+    <div id="invList"></div>
+    <div class="inv-tools">
+      <button class="ghost" id="btnDemo">载入示例</button>
+      <button class="ghost" id="btnExport">导出 JSON</button>
+      <button class="ghost" id="btnImport">导入 JSON</button>
+      <button class="ghost" id="btnClear">清空</button>
+      <input type="file" id="fileInput" accept="application/json,.json" hidden>
+    </div>
+  </section>
+  </div>
+
+  <!-- ===== 视图：搭配管理 ===== -->
+  <div id="viewCustom" hidden>
+    <section class="card">
+      <div class="card-head">
+        <h2>搭配列表</h2>
+        <span class="pill" id="activePill" data-state="zero">—</span>
+      </div>
+      <div class="preset-bar">
+        <div class="preset-tabs" id="presetRow"></div>
+        <button class="ghost" id="btnAddPreset">＋ 新增搭配</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-head">
+        <h2>编辑搭配<span id="custSub"></span></h2>
+        <span class="pill" id="custPill" data-state="zero">0 / 18 条</span>
+      </div>
+      <div class="field-row">
+        <label for="custName">名称</label>
+        <input type="text" id="custName" maxlength="24" placeholder="给这套搭配起个名字">
+      </div>
+      <div class="field-row">
+        <label for="custDesc">备注</label>
+        <input type="text" id="custDesc" maxlength="40" placeholder="可不填，写一句备注方便自己认">
+      </div>
+      <div class="cust-grid" id="custGrid"></div>
+      <p class="mode-note" id="custNote"></p>
+      <div class="inv-tools">
+        <button class="primary cust-apply" id="btnApply">用这套搭配求解</button>
+        <button class="ghost" id="btnDelPreset">删除这套搭配</button>
+        <button class="ghost" id="btnPresetZero">全部清零</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-head">
+        <h2>这套搭配预览<span id="prevSub"></span></h2>
+        <span class="pill" id="prevPill" data-state="zero">—</span>
+      </div>
+      <div class="target-grid" id="custPrev"></div>
+      <div class="mode-note" id="custDiff"></div>
+    </section>
+
+    <section class="card">
+      <div class="card-head"><h2>填写规则</h2><span class="pill">每条上限 3</span></div>
+      <p class="note" style="margin-top:0">
+        <b>怎么填</b>：每个词条填「要凑到几条」，0 就是不作要求。6 个部位各上 1 件、每件 3 条，全场一共只有 18 条，
+        所以合计超过 18 条不可能全部达成，页面会先提示你减回去。<br>
+        <b>合计正好 18 条</b>：等于要求每一条都不能浪费，求出来的搭配里每一件都是满分词条。<br>
+        <b>合计少于 18 条</b>：允许出现空转词条，求解器仍然优先把目标条数凑齐，剩下的位置可以放任意词条。<br>
+        <b>每条上限 3</b>：每条词条最多填 3 条，再多就填不上去了。<br>
+        <b>多套搭配</b>：「默认泛用毕业搭配」是默认搭配，不能改名、不能删；点「＋ 新增搭配」会复制当前这套的条数，另存为一套新的，
+        名称和备注都能随时改，也可以删掉。切换搭配在目标卡上方的标签页里点，两页的标签是同一套。
+      </p>
+    </section>
+  </div>
+
+  <!-- ===== 视图：识别录入（已并入「加一件装备」） ===== -->
+
+
+</div>
+
 </section>
 
 </main>
 <footer class="site-foot">
   <span class="foot-brand"><i aria-hidden="true"></i>GMS / GUIDE HUB</span>
-  <div class="foot-links"><a href="/main/">首页</a><a href="/main/tools/solver/">工具</a><a href="/main/guides/">攻略</a><a href="/main/about/">关于</a></div>
+  <div class="foot-links"><a href="/main/">首页</a><a href="/main/#solver">工具</a><a href="/main/guides/">攻略</a><a href="/main/about/">关于</a></div>
   <span class="foot-copy">2026 / DRYTRON</span>
 </footer>
 <script src="/main/assets/site.js"></script>
+<script src="/main/assets/solver-app.js"></script>
 <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d373065d4abe4deba06e5e082b9f58ed"}'></script>
 </body>
 </html>

@@ -61,6 +61,7 @@
 
   /* 配色 */
   var dots = Array.prototype.slice.call(document.querySelectorAll('.theme-dot'));
+  var solverRoots = Array.prototype.slice.call(document.querySelectorAll('[data-solver-root]'));
   var themeTrigger = document.getElementById('themeTrigger');
   var themePanel = document.getElementById('themePanel');
   function closeTheme(){
@@ -71,6 +72,7 @@
   function applyTheme(name){
     if (THEMES.indexOf(name) < 0) name = 'day';
     root.setAttribute('data-theme', name);
+    solverRoots.forEach(function(el){ el.setAttribute('data-theme', name); });
     try { localStorage.setItem(THEME_KEY, name); } catch(e) {}
     dots.forEach(function(dot){
       var current = dot.getAttribute('data-theme-choice') === name;
