@@ -440,6 +440,36 @@ body.q-mode #about,
 body.q-mode .foot{display:none}
 body.q-mode #events{display:block;animation:qViewIn .36s ease both}
 @keyframes qViewIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.q-workspace{display:grid;grid-template-columns:250px minmax(0,1fr);border-top:1px solid var(--line)}
+body.q-mode .q-workspace{min-height:calc(100vh - 300px)}
+.q-side{padding:22px 20px 30px 0;border-right:1px solid var(--line);min-width:0}
+.q-side-title{margin:0 0 12px;font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;color:var(--accent)}
+.q-side-title span{color:var(--text-12);margin-left:6px}
+.q-side-nav{display:flex;flex-direction:column;gap:4px}
+.q-side-item{display:grid;grid-template-columns:42px minmax(0,1fr);align-items:center;gap:9px;width:100%;padding:10px 8px;border:0;border-left:2px solid transparent;background:transparent;color:var(--text-2);text-align:left;font-family:inherit;cursor:pointer;transition:background .15s,color .15s,border-color .15s}
+.q-side-item:hover{background:var(--accent-wash);color:var(--ink)}
+.q-side-item.is-active{border-left-color:var(--accent);background:var(--accent-wash);color:var(--ink)}
+.q-side-code{font-family:var(--mono);font-size:9px;letter-spacing:.06em;color:var(--text-13)}
+.q-side-item.is-active .q-side-code{color:var(--accent)}
+.q-side-item strong{display:block;font-size:14px;font-weight:600;line-height:1.35}
+.q-side-item small{display:block;margin-top:2px;font-size:10.5px;line-height:1.4;color:var(--text-12)}
+.q-back{display:inline-flex;align-items:center;gap:8px;margin-top:22px;font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;color:var(--text-12)}
+.q-back:hover{color:var(--accent)}
+.q-back svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2}
+.q-main{min-width:0;padding:22px 0 0 34px}
+.q-panel{display:none}
+.q-panel.is-active{display:block;animation:qPanelIn .26s ease both}
+@keyframes qPanelIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.q-panel-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.q-panel-head h3{margin:0;font-family:var(--display);font-size:26px;line-height:1.15;letter-spacing:-.01em}
+.q-panel-lede{margin:0;max-width:62ch;color:var(--text-2);font-size:14px;line-height:1.8}
+.q-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:24px}
+.q-embed{margin-top:20px;border:1px solid var(--line);background:var(--card)}
+.q-embed[hidden]{display:none}
+.q-embed iframe{display:block;width:100%;height:760px;border:0;background:var(--bg)}
+.q-empty{margin-top:22px;padding:26px;border:1px dashed var(--line);background:var(--card)}
+.q-empty strong{display:block;font-family:var(--display);font-size:18px;margin-bottom:6px}
+.q-empty p{margin:0;color:var(--text-12);font-size:13px;line-height:1.7}
 .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:28px;margin-bottom:26px}
 .sec-title{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
 .sec-num{font-family:var(--mono);font-size:10.5px;color:var(--accent);letter-spacing:.1em}
@@ -573,6 +603,14 @@ body.q-mode #events{display:block;animation:qViewIn .36s ease both}
   .sec-head p{text-align:left}
   .section{padding:58px 0}
   section[id]{scroll-margin-top:124px}
+  .q-workspace{grid-template-columns:1fr}
+  body.q-mode .q-workspace{min-height:0}
+  .q-side{padding:18px 0;border-right:0;border-bottom:1px solid var(--line)}
+  .q-side-nav{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  .q-side-item{padding:9px 8px}
+  .q-main{padding:20px 0 0}
+  .q-panel-head h3{font-size:21px}
+  .q-embed iframe{height:70vh}
   .tool-body h3{font-size:20px}
   .guide-row{grid-template-columns:64px minmax(0,1fr) auto;gap:12px;min-height:96px}
   .guide-row .guide-arrow{display:none}
@@ -892,46 +930,90 @@ body.q-mode #events{display:block;animation:qViewIn .36s ease both}
           <h2>Q区活动</h2>
           <span class="sec-en">Q-REGION</span>
         </div>
-        <p>Q区相关攻略与活动入口，内容陆续补齐。</p>
+        <p>选择左侧功能，内容在当前页直接展开。</p>
       </div>
-      <div class="guide-list q-list">
-        <a class="guide-row is-link" href="/tools/3lsolve/">
-          <span class="guide-code">GEAR</span>
-          <span>
-            <h3>Q区装备与套装</h3>
-            <p>毕业词条、套装搭配与库存整理。</p>
-          </span>
-          <span class="tag tag-live">已上线</span>
-          <span class="guide-arrow" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
-          </span>
-        </a>
-        <div class="guide-row is-soon">
-          <span class="guide-code">EVENT</span>
-          <span>
-            <h3>Q区活动与日程</h3>
-            <p>限时活动、兑换与周期安排。</p>
-          </span>
-          <span class="tag tag-soon">筹备中</span>
-          <span class="guide-arrow" aria-hidden="true"></span>
-        </div>
-        <div class="guide-row is-soon">
-          <span class="guide-code">JOB</span>
-          <span>
-            <h3>Q区职业与技能</h3>
-            <p>职业选择、链接技能与加点方向。</p>
-          </span>
-          <span class="tag tag-soon">筹备中</span>
-          <span class="guide-arrow" aria-hidden="true"></span>
-        </div>
-        <div class="guide-row is-soon">
-          <span class="guide-code">BOSS</span>
-          <span>
-            <h3>Q区 Boss 与掉落</h3>
-            <p>Boss 机制、前置任务与掉落整理。</p>
-          </span>
-          <span class="tag tag-soon">筹备中</span>
-          <span class="guide-arrow" aria-hidden="true"></span>
+
+      <div class="q-workspace">
+        <aside class="q-side" aria-label="Q区功能">
+          <p class="q-side-title">Q区功能 <span>Q-REGION</span></p>
+          <nav class="q-side-nav">
+            <button class="q-side-item is-active" type="button" data-q-panel="gear" aria-pressed="true">
+              <span class="q-side-code">GEAR</span>
+              <span><strong>装备与套装</strong><small>毕业词条与套装求解</small></span>
+            </button>
+            <button class="q-side-item" type="button" data-q-panel="events" aria-pressed="false">
+              <span class="q-side-code">EVENT</span>
+              <span><strong>活动与日程</strong><small>限时活动与兑换周期</small></span>
+            </button>
+            <button class="q-side-item" type="button" data-q-panel="job" aria-pressed="false">
+              <span class="q-side-code">JOB</span>
+              <span><strong>职业与技能</strong><small>链接技能与加点方向</small></span>
+            </button>
+            <button class="q-side-item" type="button" data-q-panel="boss" aria-pressed="false">
+              <span class="q-side-code">BOSS</span>
+              <span><strong>Boss 与掉落</strong><small>机制、前置与掉落整理</small></span>
+            </button>
+          </nav>
+          <a class="q-back" href="#top">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"/><path d="M11 6l-6 6 6 6"/></svg>
+            返回全部内容
+          </a>
+        </aside>
+
+        <div class="q-main">
+          <div class="q-panel is-active" id="q-panel-gear">
+            <div class="q-panel-head">
+              <h3>Q区装备与套装</h3>
+              <span class="tag tag-live">已上线</span>
+            </div>
+            <p class="q-panel-lede">按部位录入装备，自动求出最优一套；支持识别游戏窗口、库存管理、重复识别去重，以及「再添一件就齐」的补件提示。</p>
+            <div class="q-actions">
+              <button class="btn btn-primary" type="button" id="qStartSolver" aria-expanded="false">
+                <span class="q-start-label">在当前页启动求解器</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+              </button>
+              <a class="btn btn-ghost" href="/tools/3lsolve/" target="_blank" rel="noopener">新窗口打开</a>
+            </div>
+            <div class="q-embed" id="qEmbed" hidden>
+              <iframe id="qSolverFrame" title="Q区套装毕业词条求解器" data-src="/tools/3lsolve/" allow="display-capture; fullscreen" loading="lazy"></iframe>
+            </div>
+          </div>
+
+          <div class="q-panel" id="q-panel-events">
+            <div class="q-panel-head">
+              <h3>Q区活动与日程</h3>
+              <span class="tag tag-soon">筹备中</span>
+            </div>
+            <p class="q-panel-lede">限时活动、兑换与周期安排。</p>
+            <div class="q-empty">
+              <strong>内容整理中</strong>
+              <p>Q区活动日历、兑换周期和限时任务会在这里更新。</p>
+            </div>
+          </div>
+
+          <div class="q-panel" id="q-panel-job">
+            <div class="q-panel-head">
+              <h3>Q区职业与技能</h3>
+              <span class="tag tag-soon">筹备中</span>
+            </div>
+            <p class="q-panel-lede">职业选择、链接技能与加点方向。</p>
+            <div class="q-empty">
+              <strong>内容整理中</strong>
+              <p>Q区职业选择、链接技能和加点路线会在这里更新。</p>
+            </div>
+          </div>
+
+          <div class="q-panel" id="q-panel-boss">
+            <div class="q-panel-head">
+              <h3>Q区 Boss 与掉落</h3>
+              <span class="tag tag-soon">筹备中</span>
+            </div>
+            <p class="q-panel-lede">Boss 机制、前置任务与掉落整理。</p>
+            <div class="q-empty">
+              <strong>内容整理中</strong>
+              <p>Q区 Boss 机制、前置任务和掉落表会在这里更新。</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1373,6 +1455,45 @@ body.q-mode #events{display:block;animation:qViewIn .36s ease both}
   });
 
   if (location.hash === '#events') showQ();
+
+  var qSideItems = Array.prototype.slice.call(document.querySelectorAll('.q-side-item'));
+  var qPanels = Array.prototype.slice.call(document.querySelectorAll('.q-panel'));
+  qSideItems.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var key = btn.getAttribute('data-q-panel');
+      qSideItems.forEach(function(other){
+        other.classList.remove('is-active');
+        other.setAttribute('aria-pressed', 'false');
+      });
+      btn.classList.add('is-active');
+      btn.setAttribute('aria-pressed', 'true');
+      qPanels.forEach(function(panel){
+        panel.classList.toggle('is-active', panel.id === 'q-panel-' + key);
+      });
+    });
+  });
+
+  var qStartSolver = document.getElementById('qStartSolver');
+  var qEmbed = document.getElementById('qEmbed');
+  var qFrame = document.getElementById('qSolverFrame');
+  if (qStartSolver && qEmbed && qFrame) {
+    qStartSolver.addEventListener('click', function(){
+      var opening = qEmbed.hidden;
+      if (opening) {
+        if (!qFrame.getAttribute('src')) {
+          var src = qFrame.getAttribute('data-src');
+          if (location.protocol === 'file:') src = 'https://tools.drytron.net/tools/3lsolve/';
+          qFrame.src = src;
+        }
+        qEmbed.hidden = false;
+      } else {
+        qEmbed.hidden = true;
+      }
+      qStartSolver.setAttribute('aria-expanded', opening ? 'true' : 'false');
+      var label = qStartSolver.querySelector('.q-start-label');
+      if (label) label.textContent = opening ? '收起求解器' : '在当前页启动求解器';
+    });
+  }
 })();
 </script>
 
