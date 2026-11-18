@@ -1,0 +1,1 @@
+!function(){try{var e=localStorage.getItem("gms-theme"),t=["day","night","obsidian","ocean","forest","violet"].indexOf(e)>-1?e:"day";document.documentElement.dataset.theme=t}catch(e){}}();
