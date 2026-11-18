@@ -432,6 +432,14 @@ section[id]{scroll-margin-top:142px}
 .q-section{position:relative;overflow:hidden}
 .q-section::before{content:"Q";position:absolute;right:-18px;top:14px;font-family:var(--display);font-size:clamp(150px,20vw,230px);line-height:.8;color:transparent;-webkit-text-stroke:1px var(--word-stroke);opacity:.55;pointer-events:none;user-select:none}
 .q-section .shell{position:relative;z-index:1}
+#events{display:none}
+body.q-mode .hero,
+body.q-mode #tools,
+body.q-mode #guides,
+body.q-mode #about,
+body.q-mode .foot{display:none}
+body.q-mode #events{display:block;animation:qViewIn .36s ease both}
+@keyframes qViewIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:28px;margin-bottom:26px}
 .sec-title{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
 .sec-num{font-family:var(--mono);font-size:10.5px;color:var(--accent);letter-spacing:.1em}
@@ -870,7 +878,7 @@ section[id]{scroll-margin-top:142px}
       </div>
     </div>
 
-    <a class="scroll-cue" href="#events" aria-label="向下浏览">
+    <a class="scroll-cue" href="#tools" aria-label="向下浏览">
       向下浏览
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
     </a>
@@ -1321,12 +1329,50 @@ section[id]{scroll-margin-top:142px}
   });
 
   var qNav = document.querySelector('.nav > a[data-nav="events"]');
-  Array.prototype.forEach.call(document.querySelectorAll('a[href="#events"]'), function(link){
-    link.addEventListener('click', function(){
-      directNav.forEach(function(other){ other.classList.remove('is-current'); });
-      if(qNav) qNav.classList.add('is-current');
-    });
+  var qSection = document.getElementById('events');
+
+  function showQ(){
+    document.body.classList.add('q-mode');
+    if (qSection) {
+      Array.prototype.forEach.call(qSection.querySelectorAll('.reveal'), function(el){
+        el.classList.add('is-in');
+      });
+    }
+    directNav.forEach(function(other){ other.classList.remove('is-current'); });
+    if (qNav) qNav.classList.add('is-current');
+    if (window.scrollY > 0) window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function hideQ(){
+    document.body.classList.remove('q-mode');
+    if (qNav) qNav.classList.remove('is-current');
+  }
+
+  document.addEventListener('click', function(e){
+    var link = e.target && e.target.closest ? e.target.closest('a[href^="#"]') : null;
+    if (!link) return;
+    var href = link.getAttribute('href');
+    if (href === '#events') {
+      e.preventDefault();
+      showQ();
+      return;
+    }
+    if (!document.body.classList.contains('q-mode')) return;
+    e.preventDefault();
+    hideQ();
+    if (href === '#top') {
+      window.scrollTo({top:0, behavior:'smooth'});
+      return;
+    }
+    var target = document.querySelector(href);
+    if (target) {
+      requestAnimationFrame(function(){
+        target.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    }
   });
+
+  if (location.hash === '#events') showQ();
 })();
 </script>
 
