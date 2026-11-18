@@ -309,6 +309,9 @@ body.drawer-open{overflow:hidden}
 /* ===== 关于 ===== */
 .about-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr);gap:64px;align-items:start}
 .about-copy p{margin:0;color:#9aa4af;font-size:13px;line-height:1.8;max-width:62ch}
+.about-copy p.about-credit{margin-top:12px;color:#c6cfd8}
+.about-copy p.about-credit a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(240,147,43,.4);padding-bottom:1px}
+.about-copy p.about-credit a:hover{color:#ffb15a;border-bottom-color:currentColor}
 .about-links{display:flex;flex-direction:column;border-top:1px solid var(--line-strong)}
 .about-links a{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:13px 4px;border-bottom:1px solid var(--line);font-size:12.5px;color:#d6dde4;transition:color .15s,background .15s}
 .about-links a:hover{color:var(--accent)}
@@ -702,6 +705,7 @@ body.drawer-open{overflow:hidden}
       <div class="about-grid">
         <div class="about-copy">
           <p>这里是 GMS 攻略与工具的入口页。工具和攻略分路径维护，主站只做导航与索引；新工具上线后，会先加进顶部菜单和「工具」区。</p>
+          <p class="about-credit">这是由 B 站 UP 主 <a href="https://space.bilibili.com/98564943" target="_blank" rel="noopener">Drytron（space.bilibili.com/98564943）</a> 制作的攻略与工具主页。</p>
         </div>
         <div class="about-links">
           <a href="https://github.com/YourKlc/gmsinone" target="_blank" rel="noopener">
