@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="day">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Q区总览 · GMS 攻略站</title>
+<meta name="description" content="Q区装备、活动、职业、Boss 四个功能入口。">
+<link rel="canonical" href="https://tools.drytron.net/main/q/">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20fill='%230a0c0f'/%3E%3Cpath%20d='M32%2010%2052%2021v22L32%2054%2012%2043V21Z'%20fill='none'%20stroke='%23f0932b'%20stroke-width='3'/%3E%3Ctext%20x='32'%20y='40'%20font-size='22'%20fill='%23f2f4f6'%20font-family='sans-serif'%20text-anchor='middle'%3EG%3C/text%3E%3C/svg%3E">
+<script>(function(){try{var t=localStorage.getItem('gms-theme');if(['day','night','obsidian','ocean','forest','violet'].indexOf(t)>-1)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<link rel="stylesheet" href="/main/assets/site.css">
+</head>
+<body class="page-q">
+<a class="skip" href="#main">跳到内容</a>
+<div class="mobile-head">
+  <a class="mobile-brand" href="/main/"><span>GMS</span><small>攻略站</small></a>
+  <button class="menu-toggle" id="menuToggle" type="button" aria-controls="sidebar" aria-expanded="false"><i aria-hidden="true"></i><span>菜单</span></button>
+</div>
+<aside class="sidebar" id="sidebar" aria-label="站点菜单">
+<div class="side-head"><a class="brand" href="/main/" aria-label="GMS 攻略站首页"><svg class="brand-mark" viewBox="0 0 44 44" aria-hidden="true">
+  <path d="M22 4 39 13.5v17L22 40 5 30.5v-17Z"/>
+  <path d="M29 17.5a9 9 0 1 0 0 9"/>
+  <path d="M27 22h-7"/>
+</svg><span class="brand-text"><strong>GMS</strong><small>攻略站</small></span></a><button class="side-close" id="sidebarClose" type="button" aria-label="关闭菜单">×</button></div>
+<p class="side-meta">DRYTRON / GUIDE HUB / 2026</p>
+<nav class="side-nav">
+<div class="side-group is-open">
+<button class="side-group-head" type="button" aria-expanded="true"><span class="group-leaf" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></span><span class="group-label">概览</span><span class="group-code">OVERVIEW</span><svg class="group-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+<div class="side-items">
+<a class="side-item" href="/main/"><span class="side-code">HOME</span><span class="side-label">首页</span></a>
+</div></div>
+<div class="side-group is-open">
+<button class="side-group-head" type="button" aria-expanded="true"><span class="group-leaf" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></span><span class="group-label">Q区</span><span class="group-code">Q-REGION</span><svg class="group-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+<div class="side-items">
+<a class="side-item is-current" href="/main/q/" aria-current="page"><span class="side-code">Q-REGION</span><span class="side-label">Q区总览</span></a>
+<a class="side-item" href="/main/q/gear/"><span class="side-code">GEAR</span><span class="side-label">装备与套装</span></a>
+<a class="side-item" href="/main/q/events/"><span class="side-code">EVENT</span><span class="side-label">活动与日程</span></a>
+<a class="side-item" href="/main/q/job/"><span class="side-code">JOB</span><span class="side-label">职业与技能</span></a>
+<a class="side-item" href="/main/q/boss/"><span class="side-code">BOSS</span><span class="side-label">Boss 与掉落</span></a>
+</div></div>
+<div class="side-group is-open">
+<button class="side-group-head" type="button" aria-expanded="true"><span class="group-leaf" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></span><span class="group-label">工具</span><span class="group-code">TOOLS</span><svg class="group-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+<div class="side-items">
+<a class="side-item" href="/main/tools/solver/"><span class="side-code">SOLVER</span><span class="side-label">套装求解器</span></a>
+</div></div>
+<div class="side-group is-open">
+<button class="side-group-head" type="button" aria-expanded="true"><span class="group-leaf" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></span><span class="group-label">资料</span><span class="group-code">LIBRARY</span><svg class="group-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+<div class="side-items">
+<a class="side-item" href="/main/guides/"><span class="side-code">GUIDES</span><span class="side-label">攻略索引</span></a>
+<a class="side-item" href="/main/about/"><span class="side-code">ABOUT</span><span class="side-label">关于本站</span></a>
+</div></div>
+</nav>
+<div class="side-foot">
+<a class="side-cta" href="/main/tools/solver/"><span>打开求解器</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
+<div class="theme-block"><span class="theme-label">配色</span><div class="theme-row">
+<button class="theme-dot" type="button" data-theme-choice="day" aria-label="白天" aria-pressed="false"></button>
+<button class="theme-dot" type="button" data-theme-choice="night" aria-label="黑夜" aria-pressed="false"></button>
+<button class="theme-dot" type="button" data-theme-choice="obsidian" aria-label="黑曜" aria-pressed="false"></button>
+<button class="theme-dot" type="button" data-theme-choice="ocean" aria-label="深海" aria-pressed="false"></button>
+<button class="theme-dot" type="button" data-theme-choice="forest" aria-label="森林" aria-pressed="false"></button>
+<button class="theme-dot" type="button" data-theme-choice="violet" aria-label="暮紫" aria-pressed="false"></button>
+</div></div>
+<div class="side-links"><a href="https://github.com/YourKlc/gmsinone" target="_blank" rel="noopener">GITHUB</a><span>2026</span></div>
+</div></aside>
+<div class="sidebar-backdrop" id="sidebarBackdrop" aria-hidden="true"></div>
+<main class="app-main" id="main">
+<header class="page-head">
+  <p class="page-kicker">Q区 / Q-REGION</p>
+  <h1>Q区总览</h1>
+  <p class="page-lede">Q区的四个功能各自独立成页；从左侧菜单进入，或在下面选一个入口。</p>
+</header>
+<section class="page-body">
+<div class="feature-grid feature-grid--q">
+  <a class="feature-card" href="/main/q/gear/">
+    <span class="feature-top"><span class="feature-code">GEAR</span><span class="tag tag-live">已上线</span></span>
+    <h3>装备与套装</h3>
+    <p>毕业词条、套装搭配与库存整理。求解器已直接在页面里。</p>
+    <span class="feature-foot"><span>进入页面</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span>
+  </a>
+  <a class="feature-card" href="/main/q/events/">
+    <span class="feature-top"><span class="feature-code">EVENT</span><span class="tag tag-soon">筹备中</span></span>
+    <h3>活动与日程</h3>
+    <p>限时活动、兑换与周期安排。</p>
+    <span class="feature-foot"><span>查看入口</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span>
+  </a>
+  <a class="feature-card" href="/main/q/job/">
+    <span class="feature-top"><span class="feature-code">JOB</span><span class="tag tag-soon">筹备中</span></span>
+    <h3>职业与技能</h3>
+    <p>职业选择、链接技能与加点方向。</p>
+    <span class="feature-foot"><span>查看入口</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span>
+  </a>
+  <a class="feature-card" href="/main/q/boss/">
+    <span class="feature-top"><span class="feature-code">BOSS</span><span class="tag tag-soon">筹备中</span></span>
+    <h3>Boss 与掉落</h3>
+    <p>Boss 机制、前置任务与掉落整理。</p>
+    <span class="feature-foot"><span>查看入口</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span>
+  </a>
+</div>
+
+<div class="note-strip">
+  <span class="note-mark" aria-hidden="true">//</span>
+  <p>每个入口都是独立子路径，例如 <code>/main/q/gear/</code> 和 <code>/main/q/events/</code>。左侧菜单会保持选中状态。</p>
+</div>
+
+</section>
+</main>
+<footer class="site-foot">
+  <span class="foot-brand"><i aria-hidden="true"></i>GMS / GUIDE HUB</span>
+  <div class="foot-links"><a href="/main/">首页</a><a href="/main/tools/solver/">工具</a><a href="/main/guides/">攻略</a><a href="/main/about/">关于</a></div>
+  <span class="foot-copy">2026 / DRYTRON</span>
+</footer>
+<script src="/main/assets/site.js"></script>
+<script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d373065d4abe4deba06e5e082b9f58ed"}'></script>
+</body>
+</html>
