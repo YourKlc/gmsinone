@@ -417,6 +417,9 @@ button.cust-apply{width:auto;padding:8px 16px;flex:0 0 auto}
   background:color-mix(in oklab,var(--accent) 10%,transparent);border-radius:2px;
 }
 .scan-bar{display:flex;flex-wrap:wrap;gap:5px 14px;justify-content:space-between;margin-top:8px}
+.scan-total{display:inline-flex;align-items:center;gap:5px}
+.scan-total input{width:54px;padding:2px 5px;font:inherit;font-size:11px;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:4px;outline:none}
+.scan-total input:focus{border-color:var(--accent)}
 .scan-drop{
   margin-top:9px;border:1px dashed var(--line-strong);border-radius:6px;padding:18px 16px;text-align:center;
   font-size:11.5px;color:var(--muted);background:var(--panel);cursor:pointer;
@@ -616,6 +619,9 @@ button.cust-apply{width:auto;padding:8px 16px;flex:0 0 auto}
             </div>
             <div class="scan-bar">
               <span class="hint" id="scanRegion">区域：未框选</span>
+              <span class="hint scan-total">本次总数
+                <input type="number" id="scanTotal" min="1" step="1" inputmode="numeric" placeholder="件数" aria-label="本次需要识别的装备总数">
+              </span>
               <span class="hint" id="scanSlotInfo">部位：自动识别</span>
               <span class="hint" id="scanEngine">识别引擎：未加载</span>
             </div>
@@ -1725,7 +1731,7 @@ const SCAN = {
   panelOpen:false, auto:true,
   worker:null, loading:null,
   lastHash:'', lastAt:0, busy:false,
-  records:[], seq:0, raw:'', sessionAdded:0, sessionRecognized:0,
+  records:[], seq:0, raw:'', sessionAdded:0, sessionRecognized:0, totalTarget:0,
   seen:Object.create(null), dups:Object.create(null), skipped:0, diag:[],
   prevGrid:null, lastBox:null, queue:[], holdUntil:0, missCount:0, lastSig:null, lastEnqAt:0
 };
@@ -1905,7 +1911,6 @@ async function startScan() {
   $('#btnScanStop').disabled = false;
   $('#btnScanStart').disabled = true;
   $('#btnScanRect').disabled = false;
-  setScanPill('运行中', 'ok');
   SCAN.seen = Object.create(null);
   SCAN.dups = Object.create(null);
   SCAN.skipped = 0;
@@ -1921,6 +1926,7 @@ async function startScan() {
   SCAN.queue = [];
   SCAN.holdUntil = 0;
   SCAN.missCount = 0;
+  refreshScanCountPill();
   scanNote(SCAN.rect
     ? '正在识别，把装备浮窗停在方框里；划过的每一件都会自动录入，重复的会跳过。'
     : '整窗识别中：划过一件装备就会录入一件，重复的会跳过，直到你点「停止」。框选一块浮窗区域会更快更准。');
@@ -2575,10 +2581,22 @@ function fillPick(slot, lines) {
   renderPreview();
 }
 
-/* 本次共享扫描到过的不同装备总数：新识别的 + 已判重的；用来给已识别数配一个分母 */
+/* 本次共享已识别完成的装备数：新识别的 + 已判重的，按不同装备去重 */
 function scanCountText() {
-  const total = SCAN.sessionRecognized + Object.keys(SCAN.dups).length;
-  return total ? (SCAN.sessionRecognized + '/' + total) : '0';
+  const done = SCAN.sessionRecognized + Object.keys(SCAN.dups).length;
+  return SCAN.totalTarget > 0 ? (done + '/' + SCAN.totalTarget) : String(done);
+}
+
+/* 用户改动「本次总数」时，把当前状态重新刷成 a/b */
+function refreshScanCountPill() {
+  const waiting = SCAN.busy || SCAN.queue.length;
+  if (!waiting && !SCAN.stream && !SCAN.sessionRecognized && !SCAN.records.length) {
+    setScanPill(SCAN.totalTarget ? ('未开始 · 0/' + SCAN.totalTarget + ' 件') : '未开始', 'zero');
+    return;
+  }
+  const label = waiting ? (SCAN.stream ? '识别中' : '收尾识别') : (SCAN.stream ? '运行中' : '已停止');
+  const status = waiting ? 'part' : (SCAN.stream ? 'ok' : 'zero');
+  setScanPill(label + ' · 已识别 ' + scanCountText() + ' 件', status);
 }
 
 /* 批量识别的进度提示 */
@@ -2874,6 +2892,14 @@ function bootScan() {
     SCAN.auto = e.target.checked;
     scanNote(SCAN.auto ? '读到的装备直接加入库存。' : '读到的先填进下面这格，你按「加入库存」确认。');
   };
+  const totalBox = $('#scanTotal');
+  if (totalBox) {
+    totalBox.oninput = () => {
+      const n = parseInt(totalBox.value, 10);
+      SCAN.totalTarget = Number.isFinite(n) && n > 0 ? n : 0;
+      refreshScanCountPill();
+    };
+  }
   bindScanRect();
 
   const copyBtn = $('#btnDiagCopy');
