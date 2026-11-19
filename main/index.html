@@ -573,6 +573,59 @@ body.drawer-open{overflow:hidden}
   .scroll-cue svg{animation:none}
   *{transition:none !important}
 }
+
+/* ==========================================================
+   顶栏精简：整条顶栏高度约为原来的一半（放在文件末尾以覆盖前面的取值）
+   ========================================================== */
+.utility-inner{height:24px}
+.utility-brand{font-size:10px}
+.utility-brand i{width:7px;height:7px}
+.utility-right{gap:12px}
+.theme-trigger{width:22px;height:22px}
+.theme-orb{width:14px;height:14px}
+.theme-panel{top:calc(100% + 4px)}
+.menu-button{width:24px;height:24px;padding:5px;gap:3px}
+.menu-button span{width:14px}
+.menu-button span:nth-child(2){width:11px}
+.menu-button:hover span{width:14px}
+.main-inner{height:44px}
+.logo{min-width:132px}
+.logo-mark{width:24px;height:24px}
+.logo-text strong{font-size:15px;letter-spacing:.1em}
+.logo-text small{font-size:7.5px;margin-top:2px;letter-spacing:.2em}
+.nav{height:44px;margin-left:22px}
+.nav-item{height:44px;padding:0 12px;font-size:11.5px}
+.nav-right{margin-left:14px}
+.cta{height:30px;padding:0 13px;font-size:10.5px;gap:7px}
+.cta svg{width:12px;height:12px}
+
+@media (max-width:1180px){
+  .nav{margin-left:16px}
+  .nav-item{padding:0 10px}
+  .utility-note{display:none}
+}
+@media (max-width:1080px){
+  .main-inner{height:44px}
+  .utility-inner{height:24px}
+}
+@media (max-width:760px){
+  .utility-inner{height:38px}
+  .main-inner{height:56px}
+  .theme-trigger{width:28px;height:28px}
+  .menu-button{width:34px;height:34px;padding:7px;margin-left:0;flex:none}
+  .menu-button span,.menu-button span:nth-child(2){width:18px}
+  .nav-item{padding:0 11px}
+  .logo-mark{width:28px;height:28px}
+  .logo-text strong{font-size:17px}
+  .logo-text small{font-size:8px}
+}
+
+/* 顶栏自动隐藏：下滚后收起，鼠标移回顶部再滑下 */
+.site-head{transition:transform .28s cubic-bezier(.33,1,.68,1),box-shadow .2s,background .2s}
+.site-head.is-hidden{transform:translateY(-100%)}
+@media (prefers-reduced-motion:reduce){
+  .site-head{transition:none}
+}
 </style>
 <script>
 (function(){
@@ -899,9 +952,42 @@ body.drawer-open{overflow:hidden}
     if(e.key === 'Escape'){ closeAll(); if(drawer && !drawer.hidden) closeDrawer(); }
   });
 
+  /* 滚动阴影 + 顶栏自动隐藏：下滚收起，鼠标移回顶部才滑下 */
+  var hideTimer = null;
+  var HIDE_AFTER = 120;
+  var HOT_ZONE = 56;
+
+  function revealHead(){ head.classList.remove('is-hidden'); }
+  function hideHead(){
+    if(head.classList.contains('is-hidden')) return;
+    if(window.scrollY <= HIDE_AFTER) return;
+    if(head.matches(':hover')) return;
+    if(document.body.classList.contains('drawer-open')) return;
+    if(document.querySelector('.nav-group.is-open')) return;
+    var tp = document.getElementById('themePanel');
+    if(tp && !tp.hidden) return;
+    head.classList.add('is-hidden');
+  }
+  function scheduleHide(delay){
+    if(hideTimer) clearTimeout(hideTimer);
+    hideTimer = setTimeout(hideHead, delay);
+  }
+
   window.addEventListener('scroll', function(){
     head.classList.toggle('is-scrolled', window.scrollY > 8);
+    if(window.scrollY <= 8) revealHead();
+    else if(window.scrollY > HIDE_AFTER) scheduleHide(520);
   }, {passive:true});
+
+  document.addEventListener('mousemove', function(e){
+    if(e.clientY <= HOT_ZONE){ revealHead(); return; }
+    if(e.clientY < head.getBoundingClientRect().bottom + 36) return;
+    scheduleHide(140);
+  }, {passive:true});
+
+  document.addEventListener('focusin', function(e){
+    if(head.contains(e.target)) revealHead();
+  });
 
   var drawer = document.getElementById('drawer');
   var menuBtn = document.getElementById('menuBtn');

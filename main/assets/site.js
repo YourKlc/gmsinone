@@ -108,13 +108,48 @@
     }
   });
 
-  /* 滚动阴影 */
+  /* 滚动阴影 + 顶栏自动隐藏 */
   var head = document.getElementById('siteHead');
+  var hideTimer = null;
+  var HIDE_AFTER = 120;   // 滚动超过这个距离才允许收起
+  var HOT_ZONE = 56;      // 鼠标进入顶部这一带就滑出
+
+  function revealHead(){
+    if (head) head.classList.remove('is-hidden');
+  }
+  function hideHead(){
+    if (!head || head.classList.contains('is-hidden')) return;
+    if (window.scrollY <= HIDE_AFTER) return;
+    if (head.matches(':hover')) return;
+    if (body.classList.contains('drawer-open')) return;
+    if (document.querySelector('.nav-group.is-open')) return;
+    if (themePanel && !themePanel.hidden) return;
+    head.classList.add('is-hidden');
+  }
+  function scheduleHide(delay){
+    if (hideTimer) window.clearTimeout(hideTimer);
+    hideTimer = window.setTimeout(hideHead, delay);
+  }
+
   function onScroll(){
-    if (head) head.classList.toggle('is-scrolled', window.scrollY > 8);
+    if (!head) return;
+    head.classList.toggle('is-scrolled', window.scrollY > 8);
+    if (window.scrollY <= 8) revealHead();
+    else if (window.scrollY > HIDE_AFTER) scheduleHide(520);
   }
   window.addEventListener('scroll', onScroll, {passive:true});
   onScroll();
+
+  document.addEventListener('mousemove', function(e){
+    if (!head) return;
+    if (e.clientY <= HOT_ZONE) { revealHead(); return; }
+    if (e.clientY < head.getBoundingClientRect().bottom + 36) return;
+    scheduleHide(140);
+  }, {passive:true});
+
+  document.addEventListener('focusin', function(e){
+    if (head && head.contains(e.target)) revealHead();
+  });
 
   /* 桌面端自动收起抽屉 */
   var wide = window.matchMedia('(min-width:1081px)');

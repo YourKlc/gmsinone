@@ -716,3 +716,59 @@ body.drawer-open{overflow:hidden}
   #main{scroll-margin-top:110px}
 }
 
+/* ==========================================================
+   顶栏精简：整条顶栏高度约为原来的一半
+   ========================================================== */
+.utility-inner{height:24px}
+.utility-brand{font-size:10px}
+.utility-brand i{width:7px;height:7px}
+.utility-right{gap:12px}
+.theme-trigger{width:22px;height:22px}
+.theme-orb{width:14px;height:14px}
+.theme-panel{top:calc(100% + 4px)}
+.menu-button{width:24px;height:24px;padding:5px;gap:3px}
+.menu-button span{width:14px}
+.menu-button span:nth-child(2){width:11px}
+.menu-button:hover span{width:14px}
+.main-inner{height:44px}
+.logo{min-width:132px}
+.logo-mark{width:24px;height:24px}
+.logo-text strong{font-size:15px;letter-spacing:.1em}
+.logo-text small{font-size:7.5px;margin-top:2px;letter-spacing:.2em}
+.nav{height:44px;margin-left:22px}
+.nav-item{height:44px;padding:0 12px;font-size:11.5px}
+.nav-right{margin-left:14px;gap:10px}
+.cta{height:30px;padding:0 13px;font-size:10.5px;gap:7px}
+.cta svg{width:12px;height:12px}
+
+@media (max-width:1180px){
+  .nav{margin-left:16px}
+  .nav-item{padding:0 10px}
+}
+@media (max-width:1080px){
+  .main-inner{height:44px}
+  .utility-inner{height:24px}
+}
+@media (max-width:760px){
+  .utility-inner{height:38px}
+  .main-inner{height:56px}
+  .utility-right{gap:8px}
+  .theme-trigger{width:28px;height:28px}
+  .menu-button{width:34px;height:34px;padding:7px;margin-left:0;flex:none}
+  .menu-button span,.menu-button span:nth-child(2){width:18px}
+  .logo{min-width:0}
+  .logo-mark{width:28px;height:28px}
+  .logo-text strong{font-size:17px}
+  .logo-text small{font-size:8px;letter-spacing:.2em}
+  #main{scroll-margin-top:76px}
+}
+
+/* ==========================================================
+   顶栏自动隐藏：下滚后收起，鼠标移回顶部再滑下
+   ========================================================== */
+.site-head{transition:transform .28s cubic-bezier(.33,1,.68,1),box-shadow .2s,background .2s}
+.site-head.is-hidden{transform:translateY(-100%)}
+@media (prefers-reduced-motion:reduce){
+  .site-head{transition:none}
+}
+
